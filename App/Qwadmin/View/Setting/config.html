@@ -1,0 +1,108 @@
+<include file="Public/head"/>
+<body class="no-skin">
+<include file="Public/header"/>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+<style type="text/css">
+    .row .profile-info-row{line-height: 2.5}
+    .row .profile-info-row input{padding:0 0;width: 100%}
+</style>
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <form class="form-horizontal" name="base" id="base" method="post" action="{:U('save')}">
+                            <div class="profile-user-info profile-user-info-striped">
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">拍卖商品返佣额</div>
+                                    <div class="profile-info-value" style="border-right: 1px solid #DCEBF7;"><span>上级返佣(比下级返佣少)</span></div>
+                                    <div class="profile-info-value" style="border-right: 1px solid #DCEBF7;"><span>下级返佣</span></div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> 参数 </div>
+                                    <div class="profile-info-value" style="border-right: 1px solid #DCEBF7;"><span><input name="one_profit" value="{:C('one_profit')}" type="text"/> </span></div>
+                                    <div class="profile-info-value" style="border-right: 1px solid #DCEBF7;"><span><input name="two_profit" value="{:C('two_profit')}" type="text"/> </span></div>
+
+                                </div>
+                            </div>
+                            
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" style="    width: 7%;"> 提现手续费： </label>
+                                
+                                提现手续费：<input type="text" name="cash_fei" value="{:C('cash_fei')}">%  最低提现额度：<input type="text" name="cash_money" value="{:C('cash_money')}">
+                                商品过时时间：<input type="text" name="cash_time" value="{:C('cash_time')}">(单位为分钟)
+                            </div>
+                            <div class="space-4"></div>
+                            <input type="hidden" name="filename" value="site"/>
+                            <div class="clearfix form-actions">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn btn-info" type="submit">
+                                        <i class="ace-icon fa fa-check bigger-110"></i>
+                                        保存
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+    <include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+
+<!-- inline scripts related to this page -->
+<script>
+    $(function(){
+        $('#base').ajaxForm({
+            //beforeSubmit: checkForm, // 此方法主要是提交前执行的方法，根据需要设置
+            success: complete, // 这是提交后的方法
+            dataType: 'json'
+        });
+
+        function complete(data){
+            if(data.status==1){
+                layer.alert(data.info, {icon: 6}, function(index){
+                    layer.close(index);
+                    //window.location.href="{:U('Config/base')}";
+                });
+            }else{
+                alert(data.info);
+                return false;
+            }
+        }
+
+        //提示
+        $('.refill_money').click(function(){
+            //小tips
+            layer.tips('充值金额为“0”时代表不开启', '.refill_money', {
+              tips: [1, '#3595CC'],
+              time: 4000
+            });
+        })
+    });
+</script>
+</body>
+</html>

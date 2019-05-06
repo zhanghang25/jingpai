@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://weizhong.yimei.cn/home/user/topup -->
+<html style="font-size: 50px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>充值</title>
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+<div class="header">
+    <a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+    充值	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+
+<div class="rc-div3">
+    <p class="rc-p1">充值</p>
+    <div class="rc-div1">
+        <span>¥</span>
+        <input type="text" name="money" required="" class="info" placeholder="请输入充值金额">
+    </div>
+    <p class="rc-p2">
+        付款金额
+    </p>
+    <div class="rc-div4">
+        <div class="clearfix">
+            <img src="__PUBLIC__/jss/wx.png" class="bp-img2 fl">
+            <span class="bp-span2 fl">支付宝支付</span>
+            <img src="__PUBLIC__/jss/logo34.png" class="bp-img3 fr">
+        </div>
+    </div>
+    <div class="rc-div2 clearfix">
+        <div class="fl rc-div5 rc-bj"></div>
+        <p class="fl">我已阅读并同意<span class="rc-red">《用户协议》</span></p>
+    </div>
+    <button class="rc-btn" onclick="play(this)">立即充值</button>
+</div>
+<input type="hidden" id="url" value={:U('Home/Chongzhi/addChongzhi')}>
+<div id="loading" style="position:fixed;;top:38%;left: 40%;z-index:999"></div>
+<script type="text/javascript" src="__PUBLIC__/jss/ajaxForm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery-2.1.4.min.js"></script>
+<div id="loading" style="position:fixed;;top:38%;left: 40%;z-index:999"></div>
+
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.packaged.js"></script>
+
+<!-- 模板 -->
+
+<script type="text/javascript">
+    /*
+
+     */
+    function ajaxplay(_self,formdata){
+
+        var url = $("#url").val();
+
+        //不可点击
+
+        $(_self).prop("disabled",true);
+
+        //加载中
+
+        $('#loading').html('<img src="__PUBLIC__/jss/loading.gif" width="60" height="60">');
+
+        //ajax交互
+
+        $.ajax({
+
+            type : 'post',
+
+            url : url,
+
+            data:formdata,
+
+            processData: false,
+
+            contentType: false,
+
+            dataType:'json',
+
+            complete : function(data){
+             
+                data = JSON.parse(data.responseText);
+    
+               
+
+
+                if(data['code'] == 1){
+
+                    $('#loading').html("");
+
+                    noty({text: data['msg'], layout: "center",type: 'success',timeout: 1500});
+
+                    setTimeout('window.location="'+data['url']+'"',1500);
+
+                }else{
+
+                    $('#loading').html("");
+
+                    $(_self).prop("disabled",false);
+
+                    noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+
+
+
+                }
+
+
+
+            }
+
+        });
+
+    }
+
+</script>
+
+
+<script>
+    function pay(formdata,url,__self){
+        //不可点击
+        $(__self).prop("disabled",true);
+        //加载中
+        $('#loading').html('<img src="__PUBLIC__/jss/loading.gif" width="60" height="60">');
+
+        $.ajax({
+            type : 'post',
+            url : url,
+            data:formdata,
+            processData: false,
+            contentType: false,
+            dataType:'json',
+            success : function(data){
+
+               
+               
+                if(data.code == 1){
+                    console.log(data.data);
+                    $("body").html(data.data);
+                  $('form').submit();
+                    // data = data.data;
+                    // console.log(data);
+                    // $('#loading').html("");
+                    // //alert(data.pay_type);return false;
+                    // window.location.href = "/home/order/alipay_2/pay_no/"+data.data+"/pay_type/"+data.pay_type
+                    // //window.open(url);
+                    // var flag = setInterval('ispay('+data.data+')', 2000);
+                }else{
+                    $('#loading').html("");
+                    $(__self).prop("disabled",false);
+                    noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+                }
+            },
+        });
+    }
+    function ispay(order_no){
+        var url = "/home/order/queryorder";
+        $.post(url,{order_no:order_no},function(data){
+            if(data.code==1){
+                noty({text: data['msg'], layout: "center",type: 'success',timeout: 3000});
+                window.location.href="/home/user/index";
+
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    function play(__self){
+        var formdata = new FormData();
+        var vals = $('.info');
+        for (var i = 0; i< vals.length; ++i) {
+            if(vals[i].required){
+                if(vals[i].value == ""){
+                    noty({text: "必填项不能为空", layout: "center",type: 'warning',timeout: 4000});
+                    return false;
+                }
+            }
+            if(vals[i].value != ""){
+                formdata.append(vals[i].name, vals[i].value);
+            }
+        }
+        if($("div").is('.rc-bj')){
+            var url = $("#url").val();
+            pay(formdata,url,__self);
+        }else{
+            noty({text: "请勾选协议后提交", layout: "center",type: 'warning',timeout: 4000});
+            return false;
+        }
+    }
+
+</script>
+<script>
+    $('.rc-div5').click(function(){
+        $(this).toggleClass('rc-bj');
+    })
+</script>
+
+
+</body></html>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

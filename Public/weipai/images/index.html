@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>**商城全球购</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/public.css">
+	<link rel="stylesheet" type="text/css" href="css/main_style.css">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.js"></script>
+	<script type="text/javascript" src="js/fontsize.js"></script>
+	<script type="text/javascript" src="js/public.js"></script>
+	<!-- 轮播图 -->
+	<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
+	<!-- 图片滚动 -->
+	<link rel="stylesheet" href="css/swiper.min.css">
+	<script src="js/swiper.jquery.min.js"></script>
+</head>
+<body class="pb100 bg-gray-fa">
+<!-- 搜索 -->
+<div class="search-fixed">
+	<div class="bg-white pl20 pr20 pt14 pb14">
+		<div class="search pos_rel">
+			<input type="text" value="请输入商品的关键字" class="keywords f24" onclick="this.value=''" onblur="if(this.value=='') this.value='请输入商品的关键字'"></input><input type="button" value="&#xe60d;" class="iconfont btn_search f36 pos_abs"></input>
+		</div>
+	</div>
+</div>
+<!-- 轮播图 -->
+<div id="banner" class="flexslider pos_rel">
+    <ul class="slides pos_rel">
+    	<li>
+    		<div> <img src="images/banner/banner-1.jpg" alt="" /></div>
+        </li>
+    	<li>
+    		<div> <img src="images/banner/banner-2.jpg" alt="" /></div>
+        </li>
+    </ul>
+</div>
+<!-- 海外馆分类无缝滚动 -->
+<div class="bg-white pb25 pt25 pl20 pr20 f24">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><a href="#"><img src="images/country/img_germany.png"/><span>德国馆</span></a></div>
+            <div class="swiper-slide"><a href="#"><img src="images/country/img_newZealand.png"/><span>澳新馆</span></a></div>
+            <div class="swiper-slide"><a href="#"><img src="images/country/img_england.png"/><span>英国馆</span></a></div>
+            <div class="swiper-slide"><a href="#"><img src="images/country/img_japan.png"/><span>日本馆</span></a></div>
+            <div class="swiper-slide"><a href="#"><img src="images/country/img_korea.png"/><span>韩国馆</span></a></div>
+            <div class="swiper-slide"><a href="#"><img src="images/country/img_usa.png"/><span>美国馆</span></a></div>
+            <div class="swiper-slide"><a href="#"><img src="images/country/img_southeastAsia.png"/><span>东南亚馆</span></a></div>
+            <div class="swiper-slide"><a href="#"><img src="images/country/img_italy.png"/><span>意大利馆</span></a></div>
+            <div class="swiper-slide"><a href="#"><img src="images/country/img_france.png"/><span>法国馆</span></a></div>
+        </div>
+    </div>
+</div>
+<!-- 热购 -->
+<div class="hot_sell bg-white pt10">
+	<h3 class="title f20 normal">
+		<ul>
+        	<li><a href="#">公告1今日信富微信端上线</a></li>
+            <li><a href="#">公告2今日信富微信端上线</a></li>
+            <li><a href="#">公告3今日信富微信端上线</a></li>
+        </ul>
+	</h3>
+	<div class="full_img"><img src="images/banner/img_ad.jpg" alt=""></div>
+</div>
+
+<div class="hot_products clearfix">
+	<div class="hot_prod_list">
+		<div class="box pos_rel">
+			<img src="images/none/img_1.jpg">
+			<h4><a href="">商场同款ROEM罗燕新品气质优雅小香风短外套RCJK66305B专柜正品</a></h4>
+			<div class="price"><span class="red new">￥<i>299</i></span><span class="old">￥<i>1080</i></span></div>
+			<a href="#" class="btn_buy red pos_abs">立即抢购</a>
+		</div>
+	</div>
+	<div class="hot_prod_list">
+		<div class="box pos_rel">
+			<img src="images/none/img_2.jpg">
+			<h4><a href="">商场同款ROEM罗燕新品气质优雅小香风短外套</a></h4>
+			<div class="price"><span class="red new">￥<i>299</i></span><span class="old">￥<i>1080</i></span></div>
+			<a href="#" class="btn_buy red pos_abs">立即抢购</a>
+		</div>
+	</div>
+	<div class="hot_prod_list">
+		<div class="box pos_rel">
+			<img src="images/none/img_3.jpg">
+			<h4><a href="">商场同款ROEM罗燕新品气质优雅小香风短外套RCJK66305B专柜正品</a></h4>
+			<div class="price"><span class="red new">￥<i>299</i></span><span class="old">￥<i>1080</i></span></div>
+			<a href="#" class="btn_buy red pos_abs">立即抢购</a>
+		</div>
+	</div>
+	<div class="hot_prod_list">
+		<div class="box pos_rel">
+			<img src="images/none/img_4.jpg">
+			<h4><a href="">商场同款ROEM罗燕新品气质优雅小香风短外套RCJK66305B专柜正品</a></h4>
+			<div class="price"><span class="red new">￥<i>299</i></span><span class="old">￥<i>1080</i></span></div>
+			<a href="#" class="btn_buy red pos_abs">立即抢购</a>
+		</div>
+	</div>
+</div>
+<!-- 页脚导航 -->
+<ul class="foot clearfix txt-center bg-white foot_nav">
+	<li class="cur"><a href="index.html"><i class="iconfont f48">&#xe603;</i><span>商城首页</span></a></li>
+	<li><a href="list_category.html"><i class="iconfont f48">&#xe604;</i><span>商品分类</span></a></li>
+	<li><a href="carts.html"><i class="iconfont f48">&#xe605;</i><span>购物车</span></a></li>
+	<li><a href="user_center.html"><i class="iconfont f48">&#xe606;</i><span>个人中心</span></a></li>
+</ul>
+<style>
+body{ padding-top:0.92rem;}
+</style>
+<script type="text/javascript">
+$(function () {
+
+	//轮播图
+	$('#banner').flexslider({
+		animation : 'slide',
+		controlNav : true,
+		directionNav : false,
+		animationLoop : true,
+		slideshow : true,
+		useCSS : false
+	});
+	
+	//图片滚动
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 4.5,
+        spaceBetween: 15,
+        freeMode: true
+    });
+	
+});
+</script>
+<script>
+	var q=0
+	var f=$(".normal ul li").length
+	$(".normal ul li").first().css({display:"block"}).siblings().css({display:"none"});
+	function ggds(){
+		q++
+		if(q==f)
+		{q=0}
+		$(".normal ul li").eq(q).css({display:"block"}).siblings().css({display:"none"});
+		}
+	setInterval(ggds,4000)
+</script>
+</body>
+</html>

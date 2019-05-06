@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://weizhong.yimei.cn/home/address/index -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>地址列表</title>
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+ <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+<div class="header">
+    <a href={:U('integral/money',array('id'=>$id))}><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+    地址列表	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+
+<ul class="ad-ul1">
+    <foreach name="data" item="lk">
+        <input type="hidden" name="address_id" value={$lk['id']}>
+        <li>
+            <div class="defau">
+                <div class="clearfix">
+                    <span class="fl ad-span1">{$lk['name']}<if condition="$lk['default'] eq 1 ">【默认】</if></span>
+                    <span class="fr ad-span1">{$lk['phone']}</span>
+                </div>
+                <p class="ad-p1">{$lk['province']}{$lk['city']}{$lk['county']}{$lk['detailed']}</p>
+            </div>
+            <div class="clearfix ad-div1">
+                <input type="hidden" name="address_id" value={$lk['id']}>
+
+            </div>
+        </li>
+    </foreach>
+
+</ul>
+
+
+
+<script type="text/javascript" src="__PUBLIC__/jss/ajaxForm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery-2.1.4.min.js"></script>
+<div id="loading" style="position:fixed;;top:38%;left: 40%;z-index:999"></div>
+
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.packaged.js"></script>
+
+<!-- 模板 -->
+
+<script type="text/javascript">
+    /*
+
+     */
+    function ajaxplay(_self,formdata){
+
+        var url = $("#url").val();
+
+        //不可点击
+
+        $(_self).prop("disabled",true);
+
+        //加载中
+
+        $('#loading').html('<img src="__PUBLIC__/jss/loading.gif" width="60" height="60">');
+
+        //ajax交互
+
+        $.ajax({
+
+            type : 'post',
+
+            url : url,
+
+            data:formdata,
+
+            processData: false,
+
+            contentType: false,
+
+            dataType:'json',
+
+            complete : function(data){
+
+                data = JSON.parse(data.responseText);
+
+                console.log(data);
+
+                if(data['code'] == 1){
+
+                    $('#loading').html("");
+
+                    noty({text: data['msg'], layout: "center",type: 'success',timeout: 1500});
+
+                    setTimeout('window.location="'+data['url']+'"',1500)
+
+                }else{
+
+                    $('#loading').html("");
+
+                    $(_self).prop("disabled",false);
+
+                    noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+
+
+
+                }
+
+
+
+            }
+
+        });
+
+    }
+
+</script>
+
+
+<script>
+    $('.ad-del-alert-down').click(function(){
+        var address_id = $(this).parent().prev().val();
+
+        $('#address_id').val(address_id);
+        $('.ad-del-alert').toggle();
+    })
+
+    $('.fl').click(function(){
+        $('.ad-del-alert').toggle();
+    })
+    $('.defau').click(function(){
+        var address_id = $(this).parent().prev().val();
+        $.post("{:U('address/defaults')}",{address_id:address_id},function(data){
+            console.log(data);
+            if(data.code == 200){
+                noty({text: "设置默认地址成功", layout: "center",type: 'warning',timeout: 4000});
+                setTimeout('window.location.reload();',1500);
+            }else {
+                noty({text: "设置默认地址失败", layout: "center",type: 'warning',timeout: 4000});
+                setTimeout('window.location.reload();',1500);
+
+                return false;
+            }
+        })
+    })
+</script>
+
+
+</body></html>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

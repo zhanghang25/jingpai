@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://weizhong.yimei.cn/home/login/register -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>注册</title> 
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+     <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/layer/mobile/need/layer.css"/>
+
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+<div class="header">
+	<a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+	  注册	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+<form>
+    <div class="reg-div1">
+        <ul class="reg-ul1">
+
+            <li>
+                <div class="reg-div2">
+                    <span class="reg-span1">+86</span>
+                    <input type="text" placeholder="请输入手机号码" name="mobile" id="mobile" data-age="手机号码" required="" class="reg-input1">
+
+                </div>
+            </li>
+            <li>
+                <div class="clearfix">
+                    <div class="reg-div2 fl">
+                        <input type="text" placeholder="请输入验证码" name="code" data-age="验证码" required="" class="reg-input1">
+                    </div>
+                    <button class="reg-p1 fr" onclick="send(this)">获取验证码</button>
+                </div>
+
+            </li>
+            <li>
+                <div class="reg-div2">
+                    <input type="password" name="password" placeholder="请输入6-15位的密码" data-age="密码" required="" class="reg-input1">
+                </div>
+            </li>
+            <li>
+                <div class="reg-div2">
+                    <input type="text" placeholder="请输入用户昵称" name="name" data-age="用户昵称" required="" class="reg-input1">
+                </div>
+            </li>
+            <li>
+                <div class="reg-div2">
+                    <input type="text" placeholder="请输入邀请码" name="invite_code" data-age="邀请码" required="" class="reg-input1">
+                </div>
+            </li>
+
+        </ul>
+
+        <div class="log-div2 clearfix">
+            <div class="fl rc-div5  oo rc-bj" ></div>
+            <p class="fl">我已阅读并同意<span class="rc-red sdf">《用户协议》</span></p>
+
+        </div>
+    </div>
+    <input type="hidden" value={:U('user/authentication')} id="url">
+
+    <div class="rc-btn" onclick="play(this)">注册</div>
+</form>
+
+<script type="text/javascript" src="__PUBLIC__/jss/ajaxForm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/getCode.js"></script>
+<div id="loading" style="position:fixed;;top:38%;left: 40%;z-index:999"></div>	
+
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.packaged.js"></script>
+
+<!-- 模板 -->
+
+<script type="text/javascript">
+/*
+	
+ */
+function ajaxplay(_self,formdata){	
+
+    var url = $("#url").val();
+
+	//不可点击
+
+	$(_self).prop("disabled",true);
+
+	//加载中
+
+	$('#loading').html('<img src="__PUBLIC__/jss/loading.gif" width="60" height="60">');
+
+	//ajax交互
+
+	$.ajax({
+
+		type : 'post',
+
+		url : url,
+
+		data:formdata,
+
+        processData: false,
+
+        contentType: false,
+
+        dataType:'json',
+
+		complete : function(data){
+
+			data = JSON.parse(data.responseText);
+
+			console.log(data);
+
+			if(data['code'] == 1){
+
+				$('#loading').html("");
+
+				noty({text: data['msg'], layout: "center",type: 'success',timeout: 1500});
+
+				setTimeout('window.location="'+data['url']+'"',1500)
+
+			}else{
+
+				$('#loading').html("");
+
+				$(_self).prop("disabled",false);
+
+				noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+
+
+
+			}
+
+		
+
+		} 
+
+	});		
+
+}
+
+</script>
+
+		
+<script type="text/javascript">
+
+    function play(__self){
+        var formdata = new FormData();
+        var vals = $('.reg-input1');
+        for (var i = 0; i< vals.length; ++i) {
+            if(vals[i].required){
+                if(vals[i].value == ""){
+                    //hui.iconToast('必填项不能为空 !')
+                    noty({text:""+vals[i].dataset.age +''+"必填项不能为空", layout: "center",type: 'warning',timeout: 4000});
+                    return false;
+                }
+            }
+            if(vals[i].value != ""){
+                formdata.append(vals[i].name, vals[i].value);
+            }
+        }
+        if($("div").is('.rc-bj')){
+
+        }else{
+            alert('请勾选协议后提交');
+            return false;
+        }
+        ajaxplay(__self,formdata);
+    }
+</script>
+<script>
+    function send(__self){
+        var mobile = $('#mobile').val();
+        var url ="{:U('/Home/User/sms')}";
+        getCode(__self,url,mobile);
+    }
+
+</script>
+<script>
+    $('.rc-div5').click(function(){
+        $(this).toggleClass('rc-bj');
+    })
+</script>
+
+
+</body></html>
+<script src="__PUBLIC__/jss/layer/mobile/layer.js"></script>
+<script src="__PUBLIC__/jss/layer/layer.js"></script>
+<script type="text/javascript">
+    $('.sdf').click(function () {
+        $(".oo").addClass('rc-bj');
+     /*   layer.open({
+            type: 1,
+            title: "用户注册协议",
+            skin: 'layui-layer-molv',
+
+            area: ['100%', '100%'], //宽高
+            content:'{$data["content"]}'
+        });*/
+
+    })
+
+</script>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

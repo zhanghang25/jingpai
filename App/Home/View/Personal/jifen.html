@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://weizhong.yimei.cn/home/integral/index -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>积分商城</title> 
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/jss/layer/mobile/need/layer.css"/>
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+   <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+
+<div class="header">
+	<a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+	  积分商城	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+<div style="overflow: hidden;border-bottom: 10px solid #f5f4f4;">
+    <span class=" fl" style="line-height:50px;height: 50px;font-size: 16px;color: #444;font-weight:normal;">注:配额积分可兑换账户余额</span>
+    <a href={:U('qianbao/mingxiss')}> <div class="mw-div1 fr">交易明细</div></a>
+</div>
+
+<div class="im-div1">
+    <span class="im-span1">我的积分:</span>
+    <span style="font-size: 16px;color: red;">{$fen['point']}</span>
+    <span class="im-span1">我的配额:</span>
+    <span style="font-size: 16px;color: red;">{$fen['anti_money']}</span>
+</div>
+<div class="im-div2">
+    积分兑换
+</div>
+
+<ul class="im-ul1 clearfix">
+   <foreach name="data" item="jk">
+
+        <li>
+                <img src={$jk['thumbnail']} class="im-img1">
+                <p class="im-p1">{$jk['name']}</p>
+                <p class="im-p2" style="font-size: 12px;">售价：{$jk['e_price']}配额+{$jk['fen_price']}积分</p>
+
+       <div class="im-div4 jk" onclick="jk({$jk['id']})">立即兑换</div>
+        </li>
+
+</foreach>
+    
+</ul>
+
+
+
+</body></html>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.packaged.js"></script>
+<script src="__PUBLIC__/jss/layer/mobile/layer.js"></script>
+<script src="__PUBLIC__/jss/layer/layer.js"></script>
+<script>
+ function jk(s){
+
+     $('.jk').click(function(){
+
+         layer.confirm('是否确定兑换？', {
+             btn: ['是','否'] //按钮
+         }, function(){
+
+             $.ajax(
+                 {
+                     type:"post",
+                     url:"huan",
+                     data:{id:s},
+                     dataType:"json",
+                     success:function(data){
+
+                         if(data['code'] == 1){
+
+                             $('#loading').html("");
+
+                             layer.msg(data['msg'], {icon: 1});
+
+                             setTimeout('window.location="'+data['url']+'"',1500)
+
+                         }else{
+
+                             $('#loading').html("");
+
+
+
+                             layer.msg(data['msg'], {icon: 2});
+
+
+
+                         }
+                     }
+
+                 }
+             )
+
+         }, function(){
+
+
+         });
+         return false;
+     });
+
+
+ }
+</script>
+<script>
+
+
+</script>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

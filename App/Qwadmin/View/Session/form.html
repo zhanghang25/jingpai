@@ -1,0 +1,160 @@
+<include file="Public/head"/>
+<body class="no-skin">
+<include file="Public/header"/>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <form class="form-horizontal" id="form" method="post" action="{:U('update')}">
+
+                            <!-- PAGE CONTENT BEGINS -->
+
+
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    场次标题 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="name" id="title" placeholder="场次标题"
+                                           class="col-xs-10 col-sm-5" value="{$session['name']}">
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">场次标题不能为空。</span>
+											</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    开始时间 </label>
+                                <div class="col-sm-9">
+                                    <input name="time" type="text" id="time"  value='{$session.time|date="Y-m-d H:i:s",###}'
+                                           size="25"     readonly="readonly" onfocus="WdatePicker({dateFmt:'yyyy-M-d HH:mm'})" />
+
+                                </div>
+                            </div>
+
+                            <div style="display: none;" class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-0">
+                                    状态 </label>
+                                <div class="col-sm-9">
+                                    <select  name="status" class="col-xs-10 col-sm-5">
+                                        <option value="0">未开始</option>
+                                        <option value="1">正在进行</option>
+                                        <option value="2">结束</option>
+
+                                    </select>
+
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">选择场次状态。</span>
+											</span>
+                                </div>
+                            </div>
+
+
+                            <input type="hidden" name="aid" value="{$session.id}">
+                            <div class="col-md-offset-2 col-md-9">
+                                <button class="btn btn-info submit" type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    提交
+                                </button>
+
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+
+                            <!-- PAGE CONTENT ENDS -->
+
+
+                        </form>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+    <include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    $(function () {
+        $("#tabs").tabs();
+        var editor = KindEditor.create('textarea[name="detail"]', {
+            uploadJson: '__PUBLIC__/kindeditor/php/upload_json.php',
+            fileManagerJson: '__PUBLIC__/kindeditor/php/file_manager_json.php',
+            allowFileManager: true,
+            afterBlur: function () {
+                this.sync();
+            }
+        });
+        $(".submit").click(function () {
+            var sid = $("#sid").val();
+            var title = $("#title").val();
+            var detail = $("#detail").val();
+            if (sid == 0) {
+                bootbox.dialog({
+                    title: '友情提示：',
+                    message: "场次分类必须选择。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return;
+            }
+            if (title == '') {
+                bootbox.dialog({
+                    title: '友情提示：',
+                    message: "场次标题必须填写。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return;
+            }
+            if (detail == '') {
+                bootbox.dialog({
+                    title: '友情提示：',
+                    message: "场次内容需要填写。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return;
+                return;
+            }
+            $("#form").submit();
+        });
+    });
+</script>
+</body>
+</html>

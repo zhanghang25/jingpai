@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://weizhong.yimei.cn/home/integral/look/goods_id/268 -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>商品详情</title> 
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/huser/xiang/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+     <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+
+<style>
+    .xx img{
+        width: 100%;
+    }
+</style></head>
+
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+<div class="header">
+	<a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+	  商品详情	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+<img src={$data['thumbnail']} class="pd-img1 fl">
+<div class="clearfix">
+
+</div>
+<ul class="pd-ul1">
+    <li>
+        <div class="pd-div3">
+            <p class="pd-p1">{$data['name']}</p>
+            <div class="pd-div4">
+                <span class="pd-span3">价格:</span>
+                <span class="pd-span4" style="font-size: 13px;">{$data['e_price']}反拍额+{$data['fen_price']}积分   剩余{$data['count']}件</span>
+            </div>
+        </div>
+    </li>
+    <li class="xx">
+        <p class="pd-p4">商品详情</p>
+        <!--<img src="/themes/simpleboot3/public/make/img/img1.png" class="pd-img5" width="100%"/>-->
+                <p>{$data['detail']}</p>    </li>
+</ul>
+<div class="pd-dj"></div>
+<div class="pd-div10 clearfix" style="height: auto">
+
+    <div class="pd-div12 pd-red fr" style="width: 100%;    height: 0.8rem;margin-bottom: auto">
+        <a href={:U('integral/money',array('id'=>$data['id']))}>  <p class="pd-p5">兑换</p></a>
+
+    </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/jss/ajaxForm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery-2.1.4.min.js"></script>
+<div id="loading" style="position:fixed;;top:38%;left: 40%;z-index:999"></div>	
+
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.packaged.js"></script>
+
+<!-- 模板 -->
+
+<script type="text/javascript">
+/*
+	
+ */
+function ajaxplay(_self,formdata){	
+
+    var url = $("#url").val();
+
+	//不可点击
+
+	$(_self).prop("disabled",true);
+
+	//加载中
+
+	$('#loading').html('<img src="__PUBLIC__/jss/loading.gif" width="60" height="60">');
+
+	//ajax交互
+
+	$.ajax({
+
+		type : 'post',
+
+		url : url,
+
+		data:formdata,
+
+        processData: false,
+
+        contentType: false,
+
+        dataType:'json',
+
+		complete : function(data){
+
+			data = JSON.parse(data.responseText);
+
+			console.log(data);
+
+			if(data['code'] == 1){
+
+				$('#loading').html("");
+
+				noty({text: data['msg'], layout: "center",type: 'success',timeout: 1500});
+
+				setTimeout('window.location="'+data['url']+'"',1500)
+
+			}else{
+
+				$('#loading').html("");
+
+				$(_self).prop("disabled",false);
+
+				noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+
+
+
+			}
+
+		
+
+		} 
+
+	});		
+
+}
+
+</script>
+
+		
+
+
+
+
+
+<script>
+    $('.reduce').click(function(){
+        var m=$('.numble').text();
+        m--;
+        $('.numble').text(m);
+        if($('.numble').text()<0){
+            $('.numble').text('0')
+        }
+    });
+    $('.plus').click(function(){
+        var m=$('.numble').text();
+        m++;
+        $('.numble').text(m);
+    });
+</script>
+<script>
+    $('.pd-div12').click(function(){
+        $('.bid').toggle();
+
+    });
+    $('.bid-ok').click(function(){
+        $('.bid').toggle();
+
+    });
+    $('.bid-reduce').click(function(){
+        var m=$('.bid-numble').text();
+        m--;
+        $('.bid-numble').text(m);
+        if($('.bid-numble').text()<0){
+            $('.bid-numble').text('0')
+        }
+    });
+    $('.bid-plus').click(function(){
+        var m=$('.bid-numble').text();
+        m++;
+        $('.bid-numble').text(m);
+    });
+</script>
+<script>
+    if($('.pd-div16 table').length>0){
+        $('.pd-div16 p').css('display','none')
+    }
+</script>
+<script>
+    $('.pd-div9').click(function(){
+        $('.bond').toggle();
+
+    });
+    $('.bond-ok').click(function(){
+        $('.bond').toggle();
+
+    });
+</script>
+
+
+</body></html>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

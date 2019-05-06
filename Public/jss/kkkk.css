@@ -1,0 +1,21 @@
+/ *！
+ *字体真棒v4.7.0 @davegandy  -  http://fontawesome.io  -  @fontawesome
+ *许可证 -  http://fontawesome.io/license（字体：SIL OFL 1.1，CSS：MIT许可证）
+ * /
+@import url（'// use.fontawesome.com/releases/v4.7.0/css/font-awesome-css.min.css'）;
+/ * FONT PATH
+ * -------------------------- * /
+@ font-face {
+  font-family：'FontAwesome';
+  src：url（'// use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.eot'）;
+  src：url（'// use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.eot?#iefix'）格式（'embedded-opentype'），
+       url（'// use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.woff2'）格式（'woff2'），
+       url（'// use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.woff'）格式（'woff'），
+       url（'// use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.ttf'）格式（'truetype'），
+       url（'// use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.svg#fontawesomeregular'）格式（'svg'）;
+  font-weight：normal;
+  font-style：normal;
+}
+/ *
+嵌入代码b4784f3c7b
+* /

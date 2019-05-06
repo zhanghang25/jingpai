@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://weizhong.yimei.cn/home/user/index -->
+<html style="font-size: 53.3333px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>我的</title> 
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+     <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+
+<div class="header">
+	<a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+	  我的	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+<a href={:U('home/Personal/info')}>
+<div class="p-div1 clearfix">
+
+    <img src="{$user['thumb']}" class="p-img1 fl">
+    <div class="d-div2 fl">
+        <p class="d-p1">{$user['name']}</p>
+        <p class="d-p2">积分:{$user['point']}</p>
+    </div>
+   <img src="__PUBLIC__/jss/logo2.png" class="p-img2 fr">
+</div>
+</a>
+<div class="p-div3">
+    <ul class="p-ul1 clearfix">
+        <a href="{:U('Order/orders')}">
+        <li>
+                <img src="__PUBLIC__/jss/logo3.png" class="p-img3">
+                <p class="d-p3">我的订单</p>
+        </li>
+       <a href={:U('qianbao/index')}>
+        <li>
+                <img src="__PUBLIC__/jss/logo4.png" class="p-img3">
+                <p class="d-p3">我的钱包</p>
+        </li>
+        </a>
+        <a href={:U('fenxiao/index')}>
+        <li>
+                <img src="__PUBLIC__/jss/logo5.png" class="p-img3">
+                <p class="d-p3">分销中心</p>
+        </li>
+        </a>
+        <a href={:U('index/articles',array('id'=>1))}>
+        <li>
+                <img src="__PUBLIC__/jss/logo6.png" class="p-img3">
+                <p class="d-p3">新手帮助</p>
+        </li>
+        </a>
+    </ul>
+</div>
+
+<ul class="p-ul2">
+    <a href={:U('pai/index')}>
+    <li class="clearfix">
+            <img src="__PUBLIC__/jss/logo7.png" class="p-img4 fl">
+            <span class="p-span1">我的竞拍</span>
+            <img src="__PUBLIC__/jss/logo2.png" class="p-img5 fr">
+    </li>
+    </a>
+    <a href={:U('home/address/lists')}>
+    <li class="clearfix">
+            <img src="__PUBLIC__/jss/logo8.png" class="p-img4 fl">
+            <span class="p-span1">收货信息</span>
+            <img src="__PUBLIC__/jss/logo2.png" class="p-img5 fr">
+    </li>
+    </a>
+    <a href={:U('index/articles',array('id'=>2))}>
+    <li class="clearfix">
+            <img src="__PUBLIC__/jss/logo9.png" class="p-img4 fl">
+            <span class="p-span1">客服中心</span>
+            <img src="__PUBLIC__/jss/logo2.png" class="p-img5 fr">
+    </li>
+    </a>
+    <a href={:U('integral/index')}>
+    <li class="clearfix">
+            <img src="__PUBLIC__/jss/logo10.png" class="p-img4 fl">
+            <span class="p-span1">积分商城</span>
+            <img src="__PUBLIC__/jss/logo2.png" class="p-img5 fr">
+    </li>
+    </a>
+</ul>
+<a href={:U('home/personal/setup',array('id'=>3))}>
+<div class="clearfix" style="    padding: 0.24rem;">
+        <img src="__PUBLIC__/jss/logo11.png" class="p-img4 fl">
+        <span class="p-span1">设置</span>
+        <img src="__PUBLIC__/jss/logo2.png" class="p-img5 fr">
+</div>
+</a>
+<div class="f-dj"></div>
+<div class="footer">        
+        <ul class="clearfix f-ul">
+            <li class="current">
+                <a href={:U('home/index/index')}>
+                                            <img src="__PUBLIC__/jss/icon1.png" class="f-img2">
+                        <p>首页</p>
+                                        
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Home/RecentDeal/showRecent')}">
+                                           <img src="__PUBLIC__/jss/icon2.png" class="f-img2">
+                        <p class="">最新成交</p>
+                       
+                                        
+                </a>
+            </li>
+            <li>
+                <a href={:U('pai/index')}>
+                                            <img src="__PUBLIC__/jss/icon3.png" class="f-img2">
+                        <p>参拍</p>
+                                    </a>
+            </li>
+            <li>
+                <a href={:U('home/user/login')}>
+                                            <img src="__PUBLIC__/jss/icon4h.png" class="f-img2">
+                        <p style="color: red">我的</p>
+                                    </a>
+            </li>
+        </ul>       
+    </div>
+
+<script>
+    $('.f-ul li').click(function(){
+        $('.f-ul li').removeClass('current');
+        $(this).addClass('current');
+    })
+</script>
+
+
+
+</body></html>
+  <script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

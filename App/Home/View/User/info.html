@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://weizhong.yimei.cn/home/user/message -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>个人信息</title> 
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+     <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+
+<div class="header">
+	<a href={:U('user/geren')} ><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+	  个人信息	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+
+<div class="ppi-div1 clearfix">
+    <form enctype="multipart/form-data" method="post" id="form1">
+        <input type="file" name="avatar" id="avatar" style="display:none">             
+    </form>
+    <span class="ppi-span1">头像</span>
+    <img src="__PUBLIC__/jss/logo2.png" class="ppi-img2 fr">
+    <img src="{$data['thumb']}" class="ppi-img1 fr" id="tx">
+</div>
+
+<ul class="ppi-ul1">
+    <a href={:U('personal/mgai')}>
+    <li class="clearfix">
+        <span class="ppi-span1 fl">昵称</span>
+        <img src="__PUBLIC__/jss/logo2.png" class="p-img5 fr">
+        <span class="ppi-span2 fr">{$data['name']}</span>
+    </li>
+    </a>
+    <li class="clearfix">
+        <span class="ppi-span1 fl">手机号</span>
+        <img src="__PUBLIC__/jss/logo2.png" class="p-img5 fr">
+        <span class="ppi-span2 fr">{$data['phone_num']}</span>
+    </li>
+    <a href={:U('payconfig/zhifu')}>
+        <li class="clearfix">
+            <span class="ppi-span1 fl">支付宝账户</span>
+            <img src="__PUBLIC__/jss/logo2.png" class="p-img5 fr">
+            <span class="ppi-span2 fr">{$data['zhifu']}</span>
+        </li>
+    </a>
+
+</ul>
+<script>
+    $('.ppi-img1').click(function(){
+        $('#avatar').click();      
+    })
+     $("#avatar").change(function(evt){         
+        var data = new FormData($('#form1')[0]);
+        console.log(data);
+        $.ajax({  
+            url: "{:U('home/personal/img')}",
+            type: 'POST',  
+            data: data,  
+            dataType: 'JSON',  
+            cache: false,  //cache属性是flase（默认值）时：每次读取的是最新的数据。
+            processData: false, //默认为false，当设置为true的时候,jquery ajax 提交的时候不会序列化 data，而是直接使用data 
+            contentType: false,//
+            success: function(data){
+                //$(".hideimg").hide();
+                console.log(data);
+
+
+            }
+        });
+    });
+
+    $("#avatar").change(function(e) {
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function(e) {
+                var src = e.target.result;
+                $("#tx").attr("src",src);
+            }
+        }
+    });
+
+</script>
+
+
+
+</body></html>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

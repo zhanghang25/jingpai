@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://weizhong.yimei.cn/home/order/incase -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>参拍记录</title> 
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+     <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+
+<style type="text/css">
+    .pagination{
+        width: 100%;
+        text-align: center;
+        margin: .4rem 0;
+    }
+    .pagination ul li{
+        display: inline-block;
+        margin: 0 .08rem;
+    }
+    .pagination ul li a,.pagination ul li span{
+        padding: 3px 8px;
+        border: 1px solid #999;
+        font-size: .24rem;
+    }
+    .pagination li span{
+        color: #fff;
+        background: #f5150e;
+        border: 1px solid #f5150e !important;
+    }
+</style>
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+
+<div class="header">
+	<a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+	  参拍记录	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+
+
+<ul class="ic-hd clearfix">
+    <li class="current">
+        全部
+    </li>
+    <li>
+        正在拍
+    </li>
+    <li>
+        已拍中
+    </li>
+    <li>
+        未拍中
+    </li>
+</ul>
+<ul class="ic-bd">
+    <volist name="data" id="val">
+        <li class="current">
+        <ul class="tb-ul1">
+            <volist name="val" id="value">
+            <li style="font-size: 14px;color: #00aaee;">
+                <div class="clearfix">
+                    <div class="pr fl">
+                        <img src="{$value.thumbnail}" class="d-img1">
+
+                    </div>
+
+                    <div class="fr d-div1">
+                        <div class="clearfix">
+                            <span class="d-span1 fl">商品名:{$value.shop_name}</span>
+                            <span class="d-span2 fr" style="clear:both;float: left;">结束时间{$value.end_time|date="Y-m-d H:i:s",###}</span>
+                        </div>
+
+                        <div class="clearfix">
+
+                            <a href="{:U('Home/AuctionShop/showShop',array('id'=>$value['auction_id']))}"> <div class="ic-div1 bc-red fr" style="background-color: dimgray">查看竞拍</div></a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+            </li>
+            </volist>
+                    </ul>
+    </li>
+    </volist>
+    </ul>
+<div class="pagination">
+    <ul>
+            </ul>
+    <div style="clear: both;"></div>
+</div>
+
+<div class="f-dj"></div>
+<div class="footer">
+    <ul class="clearfix f-ul">
+        <li class="current">
+            <a href={:U('home/index/index')}>
+                <img src="__PUBLIC__/jss/icon1.png" class="f-img2">
+                <p>首页</p>
+
+            </a>
+        </li>
+        <li>
+            <a href="{:U('Home/RecentDeal/showRecent')}">
+                <img src="__PUBLIC__/jss/icon2.png" class="f-img2">
+                <p class="">最新成交</p>
+
+
+            </a>
+        </li>
+        <li>
+            <a href={:U('pai/index')}>
+                <img src="__PUBLIC__/jss/icon3h.png" class="f-img2">
+                <p style="color: red">参拍</p>
+            </a>
+        </li>
+        <li>
+            <a href={:U('home/user/login')}>
+                <img src="__PUBLIC__/jss/icon4.png" class="f-img2">
+                <p >我的</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<script>
+    $('.f-ul li').click(function(){
+        $('.f-ul li').removeClass('current');
+        $(this).addClass('current');
+    })
+</script>
+<script>
+    $('.ic-bd>li').addClass('current');
+    $('.ic-hd li').click(function(){
+        $('.ic-hd li').removeClass('current');
+        $(this).addClass('current');
+        var a=$(this).index();
+        if(a==0){
+            $('.ic-bd>li').addClass('current');
+        }else{
+            $('.ic-bd>li').removeClass('current');
+            $('.ic-bd>li:eq('+(a-1)+')').addClass('current');
+        }
+
+    })
+</script>
+
+
+</body></html>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

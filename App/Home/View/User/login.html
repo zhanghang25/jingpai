@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://weizhong.yimei.cn/home/login/login -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>登录</title> 
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+     <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+<div class="header">
+	<a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+	  登录		<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+<form>
+    <div class="log-div1">
+        <ul class="log-ul1">
+            <li>
+                <input type="text" placeholder="请输入账户" name="mobile" id="mobile" required="" class="log-input1">
+            </li>
+            <li>
+                <input type="password" placeholder="请输入密码" name="password" required="" class="log-input1">
+                <!-- <img src="/themes/simpleboot3/public/make/img/logo40.png" class="log-img1 fr"/> -->
+            </li>
+            <li>
+                <div class="clearfix">
+                    <a href={:U('home/user/gai')}>  <span class="log-span1 fl">忘记密码?</span></a>
+                    <a href="{:U('user/registe')}" class="fr"><span class="log-span2">注册账号</span></a>
+                </div>
+            </li>
+        </ul>
+
+
+    </div>
+    <input type="hidden" value={:U('home/user/dologin')} id="url">
+
+    <div class="rc-btn" onclick="play(this)">登录</div>
+
+</form>
+
+<script type="text/javascript" src="__PUBLIC__/jss/ajaxForm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/getCode.js"></script>
+<div id="loading" style="position:fixed;;top:38%;left: 40%;z-index:999"></div>	
+
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.packaged.js"></script>
+
+<!-- 模板 -->
+
+<script type="text/javascript">
+/*
+	
+ */
+function ajaxplay(_self,formdata){
+
+    var url = $("#url").val();
+
+	//不可点击
+
+	$(_self).prop("disabled",true);
+
+	//加载中
+
+	$('#loading').html('<img src="__PUBLIC__/jss/loading.gif" width="60" height="60">');
+
+	//ajax交互
+
+	$.ajax({
+
+		type : 'post',
+
+		url : url,
+
+		data:formdata,
+
+        processData: false,
+
+        contentType: false,
+
+        dataType:'json',
+
+		success : function(data){
+
+			if(data['code'] == 1){
+
+				$('#loading').html("");
+
+				noty({text: data['msg'], layout: "center",type: 'success',timeout: 1500});
+
+				setTimeout('window.location="'+data['url']+'"',1500)
+
+			}else{
+
+				$('#loading').html("");
+
+				$(_self).prop("disabled",false);
+
+				noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+
+
+
+			}
+
+		
+
+		} 
+
+	});		
+
+}
+
+</script>
+
+		
+<script type="text/javascript">
+
+    function play(__self){
+        var formdata = new FormData();
+        var vals = $('.log-input1');
+        for (var i = 0; i< vals.length; ++i) {
+            if(vals[i].required){
+                if(vals[i].value == ""){
+                    //hui.iconToast('必填项不能为空 !')
+                    noty({text: "必填项不能为空", layout: "center",type: 'warning',timeout: 4000});
+                    return false;
+                }
+            }
+            if(vals[i].value != ""){
+                formdata.append(vals[i].name, vals[i].value);
+            }
+        }
+
+        ajaxplay(__self,formdata);
+    }
+</script>
+
+
+</body></html>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

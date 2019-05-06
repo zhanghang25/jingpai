@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>订单物流页面</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+
+</head>
+<body>
+<div class="container">
+    <div class="row" style="margin:15px; 0;">
+        <div class="col-md-12">
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>物流信息</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>物流公司</td>
+                        <td>{$logistic.logistics}</td>
+                    </tr>
+
+                    <tr>
+                        <td>物流编号</td>
+                        <td>{$logistic.logistics_number}</td>
+                    </tr>
+
+                    <tr>
+                        <td>订单号</td>
+                        <td>{$logistic.bianhao}</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+
+        </div>
+
+
+            <input type="hidden" name="id" value="{$id}" >
+            <button  style="margin:0px auto;display: table" id="yu_e" class="btn btn-info btn-lg">确认收货</button>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/ajaxForm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.packaged.js"></script>
+<script src="https://use.fontawesome.com/b4784f3c7b.js"></script>
+<script>
+    $('#yu_e').click(function () {
+        var id = $("input[name='id']").val();
+
+        $.post("{:U(\"Order/confirm\")}",{id:id},function(data){
+                if(data['code'] == 1)
+                {
+                    noty({text: data['msg'], layout: "center",type: 'success',timeout: 1500});
+                }else{
+                    noty({text: data['msg'], layout: "center",type: 'error',timeout: 1500});
+
+                }
+        });
+
+       // $.post()
+    });
+</script>
+</body>
+</html>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

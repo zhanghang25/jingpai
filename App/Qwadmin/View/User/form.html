@@ -1,0 +1,331 @@
+<include file="Public/head"/>
+<body class="no-skin">
+<include file="Public/header"/>
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <form class="form-horizontal" id="form" method="post" action="{:U('update')}">
+
+                            <!-- PAGE CONTENT BEGINS -->
+
+
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    客户名称 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="name"  placeholder="客户名称"
+                                      onblur="leavefuc()"
+
+                                           class="col-xs-10 col-sm-5" value="{$user['name']}">
+                                    <span  class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">用户名只能唯一</span>
+											</span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    密码 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="ming_password"  placeholder="密码"
+                                           class="col-xs-10 col-sm-5" value="{$user['ming_password']}">
+                                    <span style="display: none;" class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">不能为空。</span>
+											</span>
+                                </div>
+                            </div>
+
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    手机号 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="phone_num"  placeholder="客户名称"
+                                           onblur="leavefuc1()"    class="col-xs-10 col-sm-5" value="{$user['phone_num']}">
+                                    <span  class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">一个手机号只能注册一次,如果不修改，点击消失了，直接刷新就行了，手机号不会修改</span>
+											</span>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    积分 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="point"  placeholder="积分"
+                                           class="col-xs-10 col-sm-5" value="{$user['point']}">
+                                    <span style="display: none;" class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">不能为空。</span>
+											</span>
+                                </div>
+                            </div>
+
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    可用余额 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="available_balance"  placeholder="可用余额"
+                                           class="col-xs-10 col-sm-5" value="{$user['available_balance']}">
+                                    <span style="display: none;" class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">不能为空。</span>
+											</span>
+                                </div>
+                            </div>
+
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    保证金 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="guaranty"  placeholder="保证金"
+                                           class="col-xs-10 col-sm-5" value="{$user['guaranty']}">
+                                    <span style="display: none;" class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">不能为空。</span>
+											</span>
+                                </div>
+                            </div>
+
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    冻结金额 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="freeze"  placeholder="冻结金额"
+                                           class="col-xs-10 col-sm-5" value="{$user['freeze']}">
+                                    <span style="display: none;" class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">不能为空。</span>
+											</span>
+                                </div>
+                            </div>
+
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-1">
+                                    反拍额 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="anti_money"  placeholder="反拍额"
+                                           class="col-xs-10 col-sm-5" value="{$user['anti_money']}">
+                                    <span style="display: none;" class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">不能为空。</span>
+											</span>
+                                </div>
+                            </div>
+
+                            <div class="space-4"></div>
+
+                            <div  class="form-group">
+                                <label class="col-sm-1 control-label no-padding-right" for="form-field-0">
+                                    状态 </label>
+                                <div class="col-sm-9">
+                                    <select  name="status" class="col-xs-10 col-sm-5">
+                                        <option value="0" <if condition="$user['status'] eq 0">selected="selected"</if> >审核</option>
+                                        <option value="1" <if condition="$user['status'] eq 1">selected="selected"</if>>正常</option>
+                                        <option value="2" <if condition="$user['status'] eq 2">selected="selected"</if>>禁用</option>
+
+                                    </select>
+
+                                    <span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">选择客户状态。</span>
+											</span>
+                                </div>
+                            </div>
+
+
+                            <input type="hidden" name="id" value="{$user.id}">
+                            <div class="col-md-offset-2 col-md-9">
+                                <button class="btn btn-info submit" type="button">
+                                    <i class="icon-ok bigger-110"></i>
+                                    提交
+                                </button>
+
+                                &nbsp; &nbsp; &nbsp;
+                                <button class="btn" type="reset">
+                                    <i class="icon-undo bigger-110"></i>
+                                    重置
+                                </button>
+                            </div>
+
+                            <!-- PAGE CONTENT ENDS -->
+
+
+                        </form>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+    <include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    function leavefuc1(){
+        var phone_num = $("input[name='phone_num']").val();
+        if (!phone_num) {
+            layer.msg("客户手机不能为空",{time:4*1000});
+        }
+
+        $.ajax({
+            url:"{:U('verify_phone_num')}",
+            data:{phone_num:phone_num},
+            type:"Post",
+            // dataType:"json",
+            success:function(data){
+
+                if(data){
+
+                    layer.msg(data,{time:4*1000});
+
+                    if(data == "您的手机号已经注册"){
+                        $("input[name='phone_num']").val('');
+                    }
+
+                }
+            },
+            error:function(data){
+                console.log(data);
+                layer.msg("出错了！！");
+            }
+        });
+    }
+
+    function leavefuc(){
+        var name = $("input[name='name']").val();
+
+        if (!name) {
+            layer.msg("客户名称不能为空",{time:4*1000});
+        }
+
+        $.ajax({
+            url:"{:U('verify_name')}",
+            data:{name:name},
+            type:"Post",
+            // dataType:"json",
+            success:function(data){
+                console.log(data);
+                if(data){
+
+                layer.msg(data,{time:4*1000});
+                if(data == "您的用户名已经注册"){
+                    $("input[name='name']").val('');
+                }
+
+
+                }
+            },
+            error:function(data){
+                console.log(data);
+                layer.msg("出错了！！");
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#tabs").tabs();
+        var editor = KindEditor.create('textarea[name="detail"]', {
+            uploadJson: '__PUBLIC__/kindeditor/php/upload_json.php',
+            fileManagerJson: '__PUBLIC__/kindeditor/php/file_manager_json.php',
+            allowFileManager: true,
+            afterBlur: function () {
+                this.sync();
+            }
+        });
+        $(".submit").click(function () {
+
+            var title = $("#name").val();
+            var detail = $("#detail").val();
+            var phone_num = $("input[name='phone_num']").val();
+            var ming_password = $("input[name='ming_password']").val();
+
+            if (ming_password == '') {
+                bootbox.dialog({
+                    title: '友情提示：',
+                    message: "客户密码必须填写。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return;
+            }
+            if (phone_num == '') {
+                bootbox.dialog({
+                    title: '友情提示：',
+                    message: "客户手机号必须填写。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return;
+            }
+            if (title == '') {
+                bootbox.dialog({
+                    title: '友情提示：',
+                    message: "客户标题必须填写。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+                return;
+            }
+            if (detail == '') {
+                bootbox.dialog({
+                    title: '友情提示：',
+                    message: "客户内容需要填写。",
+                    buttons: {
+                        "success": {
+                            "label": "确定",
+                            "className": "btn-danger"
+                        }
+                    }
+                });
+
+                return;
+            }
+            $("#form").submit();
+        });
+    });
+</script>
+</body>
+</html>

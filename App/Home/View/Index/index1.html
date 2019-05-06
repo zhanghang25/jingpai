@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<!-- saved from url=(0025)http://weizhong.yimei.cn/ -->
+<html style="font-size: 50px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>首页</title>
+    <script src="__PUBLIC__/jss/jquery-2.1.1.min.js"></script>
+    <script src="__PUBLIC__/jss/leftTime.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+
+
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+    <style type="text/css">
+        .hiSlider li img{
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+        }
+        #wrap{
+            width: 100%;
+        }
+        .hiSlider{
+            overflow: hidden;
+            width: 100%;
+        }
+        .hiSlider-item{
+            float: left;
+        }
+        .kq{
+            text-align: center;
+            font-size: 18px;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+        .body{
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0.15rem 0.23rem 0.28rem;
+        }
+        .tb-p1-hide{
+            background: #e0e0e0;
+            line-height: 0.6rem;
+            font-family: 'PF Regular';
+            font-size: 0.28rem;
+            text-align: center;
+            color: #313131;
+        }
+
+    </style>
+
+
+
+</head>
+
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+
+        h1=parseInt($('.news_li li').css('width'));
+
+        $('.swap').html($('.news_li').html());
+        x = $('.news_li');
+        y = $('.swap');
+        h = $('.news_li li').length * h1; //19为每个li的高度
+        x.css('width',h);
+        y.css('width',h);
+        setTimeout(b,2000);//滚动间隔时间 现在是3秒
+    };
+</script>
+
+<div class="header">
+    <a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+    首页	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+<div id="wrap">
+    <div class="hiSlider-wrap" ><ul class="hiSlider hiSlider3" >
+        <a href={:U('index/index')}><li class="hiSlider-item" ><img src="__PUBLIC__/jss/18d078003626412760dd15eab423acd4.jpg"></li></a>
+        <a href={:U('index/index')}><li class="hiSlider-item"><img src="__PUBLIC__/jss/e4697379ef48ca962a05d0477f0dfa54.jpg"></li></a>
+        <a href={:U('index/index')}><li class="hiSlider-item"><img src="__PUBLIC__/jss/adfae0b17549ec1d0cf60a9847ee018b.jpg"></li></a>
+    </ul></div>
+</div>
+
+
+
+<div class="id-div1">
+    <div class="box">
+        <div class="t_news">
+            <ul class="news_li">
+                <volist name="biddings" id="bidding">
+                    <li><a href="/">恭喜{$bidding.name}以¥{$bidding.price}拍得{$bidding.shop_name}</a></li>
+                </volist>
+            </ul>
+            <ul class="swap">
+                ```             <volist name="biddings" id="bidding">
+                <li><a href="/">恭喜{$bidding.name}以¥{$bidding.price}拍得{$bidding.shop_name}</a></li>
+            </volist>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<ul class="id-ul1 clearfix">
+    <volist name="biddings" id="bidding">
+        <a href="{:U('AuctionShop/showShop',array('id'=>$bidding['auction_id']) )}">
+            <li>
+                <div class="pr">
+                    <img src="{$bidding.thumbnail}" class="id-img1">
+                    <img src="__PUBLIC__/jss/logo1.png" class="id-logo">
+                </div>
+                <p class="id-p1">¥{$bidding.price}</p>
+                <p class="id-p2">{$bidding.name}</p>
+            </li>
+        </a>
+    </volist>
+
+</ul>
+<div class="timeLine" >
+    <ul class="tl-hd clearfix" >
+        <volist name="sessions" id="session">
+
+            <li alt="{$session['id']}" <if condition="$changid eq $session['id']">class="current"</if> onclick="addHtml({$session['id']})">
+            <p class="tl-p1">{$session.time|date="H:i",###}</p>
+            <p class="tl-p2">{$session.name}</p>
+
+            <p class="tl-p1" style="display: none;">{$session.time|date="Y/m/d H:i:s",###}</p>
+            </li>
+        </volist>
+
+
+    </ul>
+</div>
+<input type="hidden" value="{$timedate}" id="timee">
+<ul class="tl-bd">
+
+    <li class="time-anti current">
+
+        <p class="tb-p1">{$timedate}</p>
+
+        <ul class="tb-ul1">
+
+            <volist name="auction_infos" id="auc_info">
+                <a href="{:U('AuctionShop/showShop',array('id'=>$auc_info['id']))}">
+                    <li style="border-bottom: 1px solid #e0e0e0;padding: 0.15rem 0.23rem 0.28rem;">
+                        <div class="clearfix">
+                            <img src={$auc_info['thumbnail']} class="tb-img1 fl">
+                            <div class="fr tb-div1">
+                                <p class="tb-p2">{$auc_info['shop_name']}</p>
+                                <p class="tb-p3">当前价:{$auc_info['success_price']}元</p>
+                                <div class="clearfix">
+                                    <span class="tb-span1">{$auc_info['success_times']}次出价</span>
+                                    <div class="tb-div2 bc-grey fr"><if condition="$auc_info['status'] eq 0" > {$auc_info['start_time']|date="H:i:s",###} <elseif condition="$auc_info['status'] eq 1" />正在进行<else />已结束</if> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </a>
+            </volist>
+
+        </ul>
+
+
+
+    </li>
+
+
+
+
+</ul>
+<div class="f-dj"></div>
+<div class="footer">
+    <ul class="clearfix f-ul">
+        <li class="current">
+            <a href={:U('home/index/index')}>
+                <img src="__PUBLIC__/jss/icon1h.png" class="f-img2">
+                <p>首页</p>
+
+            </a>
+        </li>
+        <li>
+            <a href="{:U('Home/RecentDeal/showRecent')}">
+                <img src="__PUBLIC__/jss/icon2.png" class="f-img2">
+                <p class="">最新成交</p>
+
+
+            </a>
+        </li>
+        <li>
+            <a href={:U('pai/index')}>
+                <img src="__PUBLIC__/jss/icon3.png" class="f-img2">
+                <p>参拍</p>
+            </a>
+        </li>
+        <li>
+            <a href={:U('home/user/login')}>
+                <img src="__PUBLIC__/jss/icon4.png" class="f-img2">
+                <p >我的</p>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+
+    // function updateShop() {
+    //     var abc = $(".timeLine .current").attr('alt');
+    //     alert(abc);
+    //     $.ajax({
+    //         url:"{:U('updateShop')}",
+    //         data:{session_id:alt},
+    //         type:"Post"
+    //     })
+    // }
+</script>
+
+<script type="text/javascript">
+    var lei = ".tb-p1";
+    daoji(lei);
+    // updateShop();
+    var nn = $(".time-anti").find(".tb-p1").text();
+    function addHtml(e)
+    {
+        var session_id = e;
+        $.ajax({
+            url:"{:U('addHtml')}",
+            data:{session_id:session_id},
+            type:"Post",
+            success:function(data){
+                // for (var i =0;i<data.length;i++)
+                // {
+                //     for(var j in data[i]){
+                //         console.log(j+":"+data[i][j])
+                //     }
+                // }
+                var str = "";
+                str += '<p class="tb-p1-hide">'+data['timedate']+"</p>";
+                str += '<ul class="tb-ul1">';
+
+                if(data['data']){
+
+                    for(var i=0;i<data['data'].length;i++)
+                    {
+                        var time1 = data['data'][i]['start_time'];
+                        var date1 = new Date(time1*1000);
+
+
+                        var time2 = change(date1.getHours()) + ":";
+                        time2 += change(date1.getMinutes()) + ":";
+                        time2 += change(date1.getSeconds());
+                        var tmp_id = data['data'][i]['id'];
+                        str += '<a href="/index.php/Home/AuctionShop/showShop/id/' + tmp_id + '.html">';
+                        str += '<li style="border-bottom: 1px solid #e0e0e0;padding: 0.15rem 0.23rem 0.28rem;">'
+                        str += '<div class="clearfix">';
+                        str += '<img src='+ data['data'][i]['thumbnail'] +' class="tb-img1 fl">';
+                        str += '<div class="fr tb-div1">';
+                        str += '<p class="tb-p2">'+ data['data'][i]['shop_name'] + '</p>';
+                        str += '<p class="tb-p3">当前价:'+ data['data'][i]['success_price'] +'元</p>'
+                        str += '<span class="tb-span1">0次出价</span>';
+                        if(data['data'][i]['status'] == 0)
+                        {
+
+                            str += '<div class="tb-div2 bc-grey fr">'+ time2 +'</div>';
+                        }else{
+                            str += '<div class="tb-div2 bc-grey fr">正在进行</div>';
+
+                        }
+                        str += '</div>';
+                        str += '</div>';
+                        str += '</div>';
+                        str += '</li>';
+                        str += '</a>';
+
+                    }
+
+                }
+                str += '</ul>';
+
+
+
+                $(".time-anti")[0].innerHTML = str;
+
+
+                var lei = ".tb-p1-hide";
+                daoji(lei);
+                // $(".time-anti").find(".tb-p1").text(data['date']);
+                // alert(data['date']);
+                // daoji();
+                // console.log(data);
+            },
+
+            error:function(data){
+                console.log(data);
+                layer.msg("出错了！！");
+            }
+        });
+
+    }
+
+    //时间补0
+    function change(t) {
+        if (t < 10) {
+            return "0" + t;
+        } else {
+            return t;
+        }
+    }
+
+
+    //追加内容倒计时
+    function daoji(lei){
+        $(".time-anti").each(function () {
+            var  time = $(this);
+            var etime=$(this).find(lei).text();
+
+            var oDiv=$(this).find(lei);
+
+            $.leftTime(etime,function(d){
+
+                if(d.status){
+
+                    var $dateShow1=oDiv;
+
+                    var oh=eval(parseInt(d.d*24)+parseInt(d.h));
+                    // $dateShow1.text(oh+":"+d.m+":"+d.s);
+                    if(oh >= 1){
+                        $dateShow1.text("暂未开始");
+                    }else{
+
+                        $dateShow1.text("距离本场结束还有 "+oh+":"+d.m+":"+d.s);
+                    }
+
+                }else{
+                    var $dateShow2=oDiv;
+                    $dateShow2.text("已结束");
+
+                }
+
+            });
+
+        });
+    }
+</script>
+
+
+
+
+
+
+<script>
+    $('.f-ul li').click(function(){
+        $('.f-ul li').removeClass('current');
+        $(this).addClass('current');
+    })
+</script>
+<script src="__PUBLIC__/jss/jquery.hiSlider.min.js"></script>
+<script src="__PUBLIC__/jss/time.js"></script>
+<script>
+    $('.hiSlider3').hiSlider({
+        isFlexible: true,
+        isSupportTouch: true,
+        isShowTitle: false,
+        isShowControls: false,
+
+    });
+</script>
+<script>
+    $('.tl-hd li').click(function(){
+        $('.tl-hd li').removeClass('current');
+        $(this).addClass('current');
+        // var a=$(this).index();
+        // $('.tl-bd li').removeClass('current');
+        // $('.tl-bd>li').eq(a).addClass('current');
+    })
+</script>
+
+<script>
+    run();
+    function b(){
+
+        t = parseInt(x.css('left'));
+
+        y.css('left',h1);
+        x.animate({left: t - h1 + 'px'},5000,'linear');	//19为每个li的高度
+
+        if(Math.abs(t) == h-h1){ //19为每个li的高度
+            y.animate({left:'0px'},5000,'linear');
+            z=x;
+            x=y;
+            y=z;
+        }
+        setTimeout(b,6000);//滚动间隔时间 现在是3秒
+    }
+</script>
+
+
+</body></html>

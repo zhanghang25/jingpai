@@ -1,0 +1,196 @@
+<include file="Public/head"/>
+
+<body class="no-skin">
+<include file="Public/header"/>
+
+
+
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="cf">
+                            <form class="form-inline" action="" method="get">
+
+
+
+
+                                <label class="inline">&nbsp;&nbsp;兑换明细排序：</label>
+                                <select name="order" class="form-control">
+                                    <option value="desc" <if condition="I('order') eq desc">selected</if>>发布时间降序</option>
+                                    <option value="asc" <if condition="I('order') eq asc">selected</if> >发布时间升序</option>
+
+                                </select>
+
+
+                                <button type="submit" class="btn btn-purple btn-sm">
+                                    <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                                    搜索
+                                </button>
+                            </form>
+                        </div>
+                        <div class="space-4"></div>
+                        <form id="form" method="post" action="{:U('del')}">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th class="center"><input class="check-all" type="checkbox" value=""></th>
+                                    <th class="col-xs-7">用户名</th>
+                                    <th>所用积分</th>
+                                    <th>所用反派额</th>
+                                    <th>兑换余额</th>
+                                    <th>兑换时间</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="data" id="val">
+                                    <tr>
+                                        <td class="center"><input class="ids" type="checkbox" name="ids[]"
+                                                                  value="{$val['id']}"></td>
+
+                                        <td>{$val['uid']}</td>
+                                        <td>{$val['jifen']}</td>
+                                        <td>{$val['fanpai']}</td>
+                                        <td>{$val['yue']}</td>
+
+                                        <td>{$val['time']|date="Y-m-d H:i:s",###}</td>
+
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                        </form>
+                        <div class="cf">
+
+                        </div>
+                        {$page}
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+    <include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    $(function () {
+        $(".check-all").click(function () {
+            $(".ids").prop("checked", this.checked);
+        });
+        $(".ids").click(function () {
+            var option = $(".ids");
+            option.each(function (i) {
+                if (!this.checked) {
+                    $(".check-all").prop("checked", false);
+                    return false;
+                } else {
+                    $(".check-all").prop("checked", true);
+                }
+            });
+        });
+        $("#submit").click(function () {
+            bootbox.confirm({
+                title: "系统提示",
+                message: "是否要删除所选商品？",
+                callback: function (result) {
+                    if (result) {
+                        $("#form").submit();
+                    }
+                },
+                buttons: {
+                    "cancel": {"label": "取消"},
+                    "confirm": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        });
+        $(".del").click(function () {
+            var url = $(this).attr('val');
+            bootbox.confirm({
+                title: "系统提示",
+                message: "是否要该商品？",
+                callback: function (result) {
+                    if (result) {
+                        window.location.href = url;
+                    }
+                },
+                buttons: {
+                    "cancel": {"label": "取消"},
+                    "confirm": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        });
+    })
+    //
+    $('#ddd').click(function () {
+        layer.open({
+            title:"拍卖信息输入",
+            closeBtn: 1,
+            btn: ['确认', '取消'],
+            area: ['25%','70%'],
+            type: 1,
+            content: $('#shuru'), //这里content是一个DOM
+            yes: function(index){
+                var obj = document.getElementsByName("ids[]");
+                var check_val = [];
+                for(k in obj)
+                {
+                    if(obj[k].checked)
+                        check_val.push(obj[k].value);
+                }
+                // alert(check_val);
+                var start_time = $("input[name='start_time']").val();
+                var end_time = $("input[name='end_time']").val();
+                var session_time = $("input[name='session_time']").val();
+                var session_id = $("#session_id").val();
+                $.ajax({
+                    url:"{:U('auxtion_info')}",
+                    data:{ids:check_val,start_time:start_time,end_time:end_time,session_time:session_time,session_id:session_id},
+                    type:"Post",
+                    // dataType:"json",
+                    success:function(data){
+                        console.log(data);
+                        layer.msg(data,{time:4*1000});
+                    },
+                    error:function(data){
+                        console.log(data);
+                        layer.msg("出错了！！");
+                    }
+                });
+                layer.close(index);
+
+
+            }
+        });
+    })
+</script>
+</body>
+</html>

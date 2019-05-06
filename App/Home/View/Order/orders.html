@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://weizhong.yimei.cn/home/user/myorder -->
+<html style="font-size: 50px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>我的订单</title> 
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+     <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+<div class="header">
+	<a href="{:U('user/login')}"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+	  我的订单	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+<style type="text/css">
+    .pagination{
+        width: 100%;
+        text-align: center;
+        margin: .4rem 0;
+    }
+    .pagination ul li{
+        display: inline-block;
+        margin: 0 .08rem;
+    }
+    .pagination ul li a,.pagination ul li span{
+        padding: 3px 8px;
+        border: 1px solid #999;
+        font-size: .24rem;
+    }
+    .pagination li span{
+        color: #fff;
+        background: #f5150e;
+        border: 1px solid #f5150e !important;
+    }
+</style>
+
+
+<ul class="mo-hd clearfix">
+    <li class="<if condition="I('get.ss') eq 3"><else/>current</if>">
+        全部
+    </li>
+    <li class="">
+        待付款
+    </li>
+    <li class="">
+        待发货
+    </li>
+    <li class="">
+        已发货
+    </li>
+    <li class="<if condition="I('get.ss') eq 3">current<else/></if>"">
+        已收货
+    </li>
+    <!--<li>-->
+        <!--拍卖中-->
+    <!--</li>-->
+</ul>
+<ul class="mo-bd">
+            <li class="<if condition="I('get.ss') eq 3"><else/>current</if>">
+        <ul class="mo-ul1">
+            <volist name="total" id="order">
+            <if condition="$order['status'] eq 1"><a href="{:U('Order/oneStep',array('id'=>$order['id']))}">
+            <elseif condition="$order['status'] eq 3" /><a href="{:U('Order/confirm',array('id'=>$order['id']))}"><else /><a>
+
+            </if>
+            <li style="border-bottom: 1px solid #e0e0e0;padding: 0.15rem 0.23rem 0.28rem;">
+                <div class="clearfix">
+                    <img src="{$order.pic}" class="tb-img1 fl">
+                    <div class="fr tb-div1">
+                        <p class="tb-p2" style="height:0.48rem">{$order.shop_name}</p>
+                        <p class="tb-p3">成交价:{$order.shop_price}元</p>
+                        <div class="clearfix">
+                            <span class="tb-span1">下单时间:{$order.placetime|date="Y-m-d H:i:s",###}</span>
+                            <div class="tb-div2 bc-grey fr" style="background-color: <if condition="$order['status'] eq 1">#8B814C<elseif condition="$order['status'] eq 2" />lavender<elseif condition="$order['status'] eq 3" />LightSteelBlue<elseif condition="$order['status'] eq 4" />MediumAquamarine</if>"><if condition="$order['status'] eq 1">待付款<elseif condition="$order['status'] eq 2" />待发货<elseif condition="$order['status'] eq 3" />确认收货<elseif condition="$order['status'] eq 4" />已收货</if></div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+                </a>
+            </volist>
+
+                    </ul>
+    </li>
+            <li class="">
+                <ul class="mo-ul1">
+                    <volist name="wait_pay" id="order">
+                        <a href="{:U('Order/oneStep',array('id'=>$order['id']))}">
+                        <li style="border-bottom: 1px solid #e0e0e0;padding: 0.15rem 0.23rem 0.28rem;">
+                            <div class="clearfix">
+                                <img src="{$order.pic}" class="tb-img1 fl">
+                                <div class="fr tb-div1">
+                                    <p class="tb-p2" style="height:0.48rem">{$order.shop_name}</p>
+                                    <p class="tb-p3">成交价:{$order.shop_price}元</p>
+                                    <div class="clearfix">
+                                        <span class="tb-span1">下单时间:{$order.placetime|date="Y-m-d H:i:s",###}</span>
+                                        <div class="tb-div2 bc-grey fr" style="background-color: <if condition="$order['status'] eq 1">#8B814C<elseif condition="$order['status'] eq 2" />lavender<elseif condition="$order['status'] eq 3" />LightSteelBlue<elseif condition="$order['status'] eq 4" />MediumAquamarine</if>"><if condition="$order['status'] eq 1">待付款<elseif condition="$order['status'] eq 2" />待发货<elseif condition="$order['status'] eq 3" />确认收货<elseif condition="$order['status'] eq 4" />已收货</if></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        </a>
+                    </volist>
+
+                </ul>
+    </li>
+    <li class="">
+        <ul class="mo-ul1">
+            <volist name="wait_deal" id="order">
+
+                <li style="border-bottom: 1px solid #e0e0e0;padding: 0.15rem 0.23rem 0.28rem;">
+                    <div class="clearfix">
+                        <img src="{$order.pic}" class="tb-img1 fl">
+                        <div class="fr tb-div1">
+                            <p class="tb-p2" style="height:0.48rem">{$order.shop_name}</p>
+                            <p class="tb-p3">成交价:{$order.shop_price}元</p>
+                            <div class="clearfix">
+                                <span class="tb-span1">下单时间:{$order.placetime|date="Y-m-d H:i:s",###}</span>
+                                <div class="tb-div2 bc-grey fr" style="background-color: <if condition="$order['status'] eq 1">#8B814C<elseif condition="$order['status'] eq 2" />lavender<elseif condition="$order['status'] eq 3" />LightSteelBlue<elseif condition="$order['status'] eq 4" />MediumAquamarine</if>"><if condition="$order['status'] eq 1">待付款<elseif condition="$order['status'] eq 2" />待发货<elseif condition="$order['status'] eq 3" />确认收货<elseif condition="$order['status'] eq 4" />已收货</if></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </volist>
+
+        </ul>
+    </li>
+    <li class="">
+        <ul class="mo-ul1">
+            <volist name="wait_delivery" id="order">
+                <a href="{:U('Order/confirm',array('id'=>$order['id']))}">
+                <li style="border-bottom: 1px solid #e0e0e0;padding: 0.15rem 0.23rem 0.28rem;">
+                    <div class="clearfix">
+                        <img src="{$order.pic}" class="tb-img1 fl">
+                        <div class="fr tb-div1">
+                            <p class="tb-p2" style="height:0.48rem">{$order.shop_name}</p>
+                            <p class="tb-p3">成交价:{$order.shop_price}元</p>
+                            <div class="clearfix">
+                                <span class="tb-span1">下单时间:{$order.placetime|date="Y-m-d H:i:s",###}</span>
+                                <div class="tb-div2 bc-grey fr" style="background-color: <if condition="$order['status'] eq 1">#8B814C<elseif condition="$order['status'] eq 2" />lavender<elseif condition="$order['status'] eq 3" />LightSteelBlue<elseif condition="$order['status'] eq 4" />MediumAquamarine</if>"><if condition="$order['status'] eq 1">待付款<elseif condition="$order['status'] eq 2" />待发货<elseif condition="$order['status'] eq 3" />确认收货<elseif condition="$order['status'] eq 4" />已收货</if></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                </a>
+            </volist>
+
+        </ul>
+    </li>
+
+    <li class="<if condition="I('get.ss') eq 3">current<else/></if>"">
+        <ul class="mo-ul1">
+            <volist name="deliveried" id="order">
+                <li style="border-bottom: 1px solid #e0e0e0;padding: 0.15rem 0.23rem 0.28rem;">
+                    <div class="clearfix">
+                        <img src="{$order.pic}" class="tb-img1 fl">
+                        <div class="fr tb-div1">
+                            <p class="tb-p2" style="height:0.48rem">{$order.shop_name}</p>
+                            <p class="tb-p3">成交价:{$order.shop_price}元</p>
+                            <div class="clearfix">
+                                <span class="tb-span1">下单时间:{$order.placetime|date="Y-m-d H:i:s",###}</span>
+                                <div class="tb-div2 bc-grey fr" style="background-color: <if condition="$order['status'] eq 1">#8B814C<elseif condition="$order['status'] eq 2" />lavender<elseif condition="$order['status'] eq 3" />LightSteelBlue<elseif condition="$order['status'] eq 4" />MediumAquamarine</if>"><if condition="$order['status'] eq 1">待付款<elseif condition="$order['status'] eq 2" />待发货<elseif condition="$order['status'] eq 3" />已发货<elseif condition="$order['status'] eq 4" />已收货</if></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </volist>
+
+        </ul>
+    </li>
+
+    </ul>
+<div class="pagination">
+    <ul>
+            </ul>
+    <div style="clear: both;"></div>
+</div>
+
+<div class="ad-del-alert fa">
+    <div class="ad-del-div1">
+        <p>确定要发货吗？</p>
+        <div class="ad-div2">
+            <input type="hidden" id="order_id" value="">
+            <span class="fl hjk">取消</span>
+            <span class="fr ad-span1 faxx">发货</span>
+        </div>
+    </div>
+</div>
+
+<div class="ad-del-alert zhaun">
+    <div class="ad-del-div1">
+        <p>确定要转拍吗？</p>
+        <div class="ad-div2">
+            <input type="hidden" id="order_id" value="">
+            <span class="fl rsxx">取消</span>
+            <span class="fr ad-span1 zhaunhh">转拍</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/jss/ajaxForm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery-2.1.4.min.js"></script>
+<div id="loading" style="position:fixed;;top:38%;left: 40%;z-index:999"></div>	
+
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.packaged.js"></script>
+
+<!-- 模板 -->
+
+<script type="text/javascript">
+/*
+	
+ */
+
+function ajaxplay(_self,formdata){	
+
+    var url = $("#url").val();
+
+	//不可点击
+
+	$(_self).prop("disabled",true);
+
+	//加载中
+
+	$('#loading').html('<img src="__PUBLIC__/jss/loading.gif" width="60" height="60">');
+
+	//ajax交互
+
+	$.ajax({
+
+		type : 'post',
+
+		url : url,
+
+		data:formdata,
+
+        processData: false,
+
+        contentType: false,
+
+        dataType:'json',
+
+		complete : function(data){
+
+			data = JSON.parse(data.responseText);
+
+			console.log(data);
+
+			if(data['code'] == 1){
+
+				$('#loading').html("");
+
+				noty({text: data['msg'], layout: "center",type: 'success',timeout: 1500});
+
+				setTimeout('window.location="'+data['url']+'"',1500)
+
+			}else{
+
+				$('#loading').html("");
+
+				$(_self).prop("disabled",false);
+
+				noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+
+
+
+			}
+
+		
+
+		} 
+
+	});		
+
+}
+
+</script>
+
+		
+<script>
+    /*  发货*/
+    $('.fahuo').click(function(){
+        var order_id = $(this).parent().prev().val();
+        $('#order_id').val(order_id);
+        $('.fa').toggle();
+    })
+    $('.hjk').click(function(){
+        $('.fa').toggle();
+    })
+    $('.faxx').click(function(){
+        var order_id = $('#order_id').val();
+        $.post('/home/integral/shipments', {'order_id': order_id}, function (data){
+            if(data == 1){
+                noty({text: "申请发货成功", layout: "center",type: 'success',timeout: 4000});
+               setTimeout('window.location.reload();',1500);
+            }
+        })
+    })
+    /* 转拍*/
+    $('.zhuanpai').click(function() {
+        var order_id = $(this).parent().prev().val();
+        $('#order_id').val(order_id);
+        $('.zhaun').toggle();
+    });
+    $('.rsxx').click(function(){
+        $('.zhaun').toggle();
+    })
+    $('.zhaunhh').click(function(){
+        var order_id = $('#order_id').val();
+        $.post('/home/integral/turnon', {'order_id': order_id}, function (data){
+            console.log(data);
+            if(data.code == 1){
+                noty({text: "申请转拍成功", layout: "center",type: 'success',timeout: 4000});
+                setTimeout('window.location.reload();',1500);
+            }else{
+                noty({text: data.data, layout: "center",type: 'error',timeout: 4000});
+            }
+        })
+    })
+</script>
+<script>
+//    $('.mo-bd>li').addClass('current');
+    $('.mo-hd li').click(function(){
+        $('.mo-hd li').removeClass('current');
+        $(this).addClass('current');
+        var a=$(this).index();
+        $('.mo-bd>li').removeClass('current');
+        $('.mo-bd>li:eq('+a+')').addClass('current');
+    })
+</script>
+
+
+</body></html>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

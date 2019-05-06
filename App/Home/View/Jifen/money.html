@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://weizhong.yimei.cn/home/integral/buy/goods_id/268 -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>兑换商品</title> 
+    <script src="__PUBLIC__/huser/money/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/huser/money/rem.js"></script>
+    <link href="__PUBLIC__/huser/money/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/huser/money/jquery.hiSlider.min.css">
+    
+    <link type="text/css" href="__PUBLIC__/huser/money/jq22.css" rel="stylesheet">
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+<div class="header">
+	<a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/huser/money/back1.png" class="h-img1"></a>
+	  兑换商品	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/huser/money/help.png" class="h-img"></a>
+</div>
+<form >
+                <a href={:U('integral/address',array('id'=>$data['id']))}>
+                <div class="bp-div5 clearfix">
+                    <div class="clearfix">
+                        <input type="hidden" id="address_id" name="address_id" value="{$address['id']}" class="info">
+
+                        <span class="fl ad-span1">{$address['name']}
+                                            </span>
+                        <span class="fr ad-span1">{$address['phone_num']}</span>
+                    </div>
+                    <p class="ad-p1">{$address['province']}{$address['city']}{$address['county']}{$address['detailed']}</p>
+                </div>
+            </a>
+                <div class="clearfix bp-div1">
+            <img src={$data['thumbnail']} class="bp-img1 fl">
+            <div class="bp-div2 fr">
+                <p class="bp-p1 ">{$data['name']} </p>
+
+            </div>
+        </div>
+        <div class="bp-div3">
+            <ul class="bp-ul1 clearfix">
+                <li>运费:¥{$data['freight']}</li>
+                <li>积分:{$data['fen_price']}</li>
+                <li>反拍额:{$data['e_price']}</li>
+
+                <input type="hidden" id="kucun" value={$data['count']}>
+            </ul>
+        </div>
+        <p class="bp-p3">
+            付款金额
+            <span class="bp-span1">¥{$data['e_price']}反拍额+{$data['fen_price']}积分+{$data['freight']}运费</span>
+        </p>
+
+        <input type="hidden" name="integral_id" value={$data['id']} class="info" id="integral_id">
+        <div class="bp-div4">
+
+        <div class="bp-btn" onclick="play(this)">确认付款</div>
+    </div>
+    <input type="hidden" value={:U('integral/buys')} id="url">
+</form>
+
+<script type="text/javascript" src="__PUBLIC__/huser/money/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/huser/money/ajaxForm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/huser/money/getCode.js"></script>
+<div id="loading" style="position:fixed;;top:38%;left: 40%;z-index:999"></div>	
+
+<script type="text/javascript" src="__PUBLIC__/huser/money/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/huser/money/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/huser/money/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/huser/money/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/huser/money/jquery.noty.packaged.js"></script>
+
+<!-- 模板 -->
+
+<script type="text/javascript">
+/*
+
+ */
+function ajaxplay(_self,formdata){
+
+    var url = $("#url").val();
+
+	//不可点击
+
+	$(_self).prop("disabled",true);
+
+	//加载中
+
+	$('#loading').html('<img src="__PUBLIC__/huser/registe/loading.gif" width="60" height="60">');
+
+	//ajax交互
+
+	$.ajax({
+
+		type : 'post',
+
+		url : url,
+
+		data:formdata,
+
+        processData: false,
+
+        contentType: false,
+
+        dataType:'json',
+
+		complete : function(data){
+
+			data = JSON.parse(data.responseText);
+
+
+
+			if(data['code'] == 1){
+
+				$('#loading').html("");
+
+				noty({text: data['msg'], layout: "center",type: 'success',timeout: 1500});
+
+				setTimeout('window.location="'+data['url']+'"',1500)
+
+			}else{
+
+				$('#loading').html("");
+
+				$(_self).prop("disabled",false);
+
+				noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+
+
+
+			}
+
+
+
+		}
+
+	});
+
+}
+
+</script>
+
+
+<script>
+	function pay(formdata,url,__self){
+	//不可点击
+        $(__self).prop("disabled",true);
+        //加载中
+        $('#loading').html('<img src="__PUBLIC__/huser/registe/loading.gif" width="60" height="60">');
+
+        $.ajax({
+            type : 'post',
+            url : url,
+            data:formdata,
+            processData: false,
+            contentType: false,
+            dataType:'json',
+            success : function(data){
+                console.log(data);
+                if(data.code == 1){
+
+                    //alert(data.pay_type);return false;
+                   alert(data.msg);
+                    //window.open(url);
+                    setTimeout('window.location="'+data['url']+'"',1500)
+                }else{
+                    $('#loading').html("");
+                    $(__self).prop("disabled",false);
+                    noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+                }
+            },
+        });
+	}
+
+</script>
+<script type="text/javascript">
+
+    function play(__self){
+
+
+
+        var formdata = new FormData();
+
+        var c=$('#address_id').val();
+        var s=$("#integral_id").val();
+        formdata.append('address_id',c);
+        formdata.append('integral_id',s);
+        if(c == ''){
+            noty({text: "请不要忘记添加地址哦", layout: "center",type: 'warning',timeout: 4000});
+            return false;
+        }
+        var url = $("#url").val();
+        pay(formdata,url,__self);
+    }
+
+</script>
+
+</body></html>

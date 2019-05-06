@@ -1,0 +1,20 @@
+
+.box{ height:0.8rem;  overflow:hidden;}
+.t_news{ height:0.8rem;  overflow:hidden; position:relative;}
+.news_li,.swap{  display:inline-block; position:absolute; top:0; left:0;}
+.swap{
+	left:6.52rem;
+}
+.news_li li,.swap li{
+	height:0.8rem;
+	width: 6.52rem;
+	overflow: hidden;
+	float: left;
+}
+.news_li a,.swap a{
+	line-height:0.8rem; 
+	font-size: 0.3rem; 
+	color:#fd4052;
+	display: block;
+	height: 0.8rem;
+}

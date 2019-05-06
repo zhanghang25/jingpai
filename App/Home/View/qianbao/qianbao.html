@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)http://weizhong.yimei.cn/home/user/mymoney -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>我的钱包</title> 
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+ <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/jss/layer/mobile/need/layer.css"/>
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+
+<div class="header">
+	<a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+	  我的钱包	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+
+<ul class="mw-ul1">
+    <li>
+        <p class="mw-p1">保证金余额（元）</p>
+        <div class="clearfix">
+            <span class="mw-span1 fl">¥{$data['guaranty']}</span>
+            <a href={:U('Home/Chongzhi/show')}><div class="mw-div1 fr">充值</div></a>
+        </div>
+    </li>
+    <li>
+        <p class="mw-p1">冻结保证金</p>
+        <div class="clearfix">
+            <span class="mw-span1 fl">¥{$data['freeze']}</span>
+        </div>
+    </li>
+    <li>
+        <p class="mw-p1">历史总收益</p>
+        <div class="clearfix">
+            <span class="mw-span1 fl" style="line-height:normal;">
+                <p style="font-size: 13px;margin: 0;padding: 0;display: inline-block;margin-top: 10px;color: #2f2f2f;">返佣金:￥{$date1}</p>
+                 <p style="font-size: 13px;margin-top: 10px;color: #2f2f2f;">配额:￥{$date2}</p>
+                 <p style="font-size: 13px;margin-top: 10px;color: #2f2f2f;">积分:￥{$date3}</p>
+
+            </span>
+            <a href={:U('qianbao/mingxi')}> <div class="mw-div1 fr">明细</div></a>
+        </div>
+    </li>
+    <li>
+        <p class="mw-p1">账户余额</p>
+        <div class="clearfix">
+            <span class="mw-span1 fl">¥{$data['available_balance']}</span>
+        </div>
+    </li>
+    <li>
+        <p class="mw-p1">可提现</p>
+        <div class="clearfix">
+            <span class="mw-span1 fl">¥{$data['available_balance']+$data['guaranty']}元</span>
+            <a href={:U('Payconfig/tixian')}> <div class="mw-div1 fr jk">提现</div></a>
+            <a href={:U('payconfig/mingxis')}> <div class="mw-div1 fr" style="margin-right: 6px;">提现记录</div></a>
+        </div>
+    </li>
+</ul>
+<div class="f-dj"></div>
+<div class="footer">
+    <ul class="clearfix f-ul">
+        <li class="current">
+            <a href={:U('home/index/index')}>
+                <img src="__PUBLIC__/jss/icon1.png" class="f-img2">
+                <p>首页</p>
+
+            </a>
+        </li>
+        <li>
+            <a href="{:U('Home/RecentDeal/showRecent')}">
+                <img src="__PUBLIC__/jss/icon2.png" class="f-img2">
+                <p class="">最新成交</p>
+
+
+            </a>
+        </li>
+        <li>
+            <a href={:U('pai/index')}>
+                <img src="__PUBLIC__/jss/icon3.png" class="f-img2">
+                <p>参拍</p>
+            </a>
+        </li>
+        <li>
+            <a href={:U('home/user/login')}>
+                <img src="__PUBLIC__/jss/icon4h.png" class="f-img2">
+                <p style="color: red">我的</p>
+            </a>
+        </li>
+    </ul>
+</div>
+
+</body></html>
+<script src="__PUBLIC__/jss/layer/mobile/layer.js"></script>
+<script src="__PUBLIC__/jss/layer/layer.js"></script>
+<script>
+    $('.jk').click(function(){
+
+        layer.confirm('请选择您的提现账户？', {
+            btn: ['保证金账户','余额账户'] //按钮
+        }, function(){
+            layer.msg('请稍后', {icon: 1});
+            window.location="{:U('payconfig/tixian',array('type'=>1))}";
+        }, function(){
+            layer.msg('请稍后', {icon:1});
+            window.location="{:U('payconfig/tixian',array('type'=>2))}";
+        });
+        return false;
+    });
+
+</script>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

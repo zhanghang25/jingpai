@@ -1,0 +1,170 @@
+<include file="Public/head"/>
+
+<body class="no-skin">
+<include file="Public/header"/>
+
+
+
+<div class="main-container" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }
+    </script>
+
+    <include file="Public/sidebar"/>
+    <div class="main-content">
+        <div class="main-content-inner">
+            <!-- #section:basics/content.breadcrumbs -->
+            <include file="Public/breadcrumbs"/>
+            <!-- /section:basics/content.breadcrumbs -->
+            <div class="page-content">
+                <include file="Public/set"/>
+
+                <!-- /section:settings.box -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="cf">
+                            <form class="form-inline" action="" method="get">
+
+
+                                <label class="inline">订单编号</label>
+                                <input type="text" name="keyword" value="{:I('keyword')}" class="form-control">
+
+                                <label class="inline">&nbsp;&nbsp;选择订单状态：</label>
+                                <select name="keyword1" class="form-control">
+                                    <option  value="">请选择</option>
+                                    <option value="1" <if condition="I('keyword1') eq 1">selected</if>>待付款</option>
+                                    <option value="2" <if condition="I('keyword1') eq 2">selected</if> >待发货</option>
+                                    <option value="3" <if condition="I('keyword1') eq 3">selected</if> >已发货</option>
+                                    <option value="4" <if condition="I('keyword1') eq 4">selected</if> >已收货</option>
+
+                                </select>
+
+
+                                <button type="submit" class="btn btn-purple btn-sm">
+                                    <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                                    搜索
+                                </button>
+                            </form>
+                        </div>
+                        <div class="space-4"></div>
+                        <form id="form" method="post" action="{:U('del')}">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th class="center"><input class="check-all" type="checkbox" value=""></th>
+                                    <th class="col-xs-3">订单编号</th>
+                                    <th>订单状态</th>
+                                    <th>下单时间</th>
+                                    <th>订单金额</th>
+                                    <th>商品名称</th>
+                                    <th>客户昵称</th>
+                                    <th>客户电话</th>
+                                    <th>收货人</th>
+                                    <th>收货地址</th>
+
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="val">
+                                    <tr>
+                                        <td class="center"><input class="ids" type="checkbox" name="ids[]"
+                                                                  value="{$val['id']}"></td>
+
+                                        <td>{$val['bianhao']}</td>
+                                        <td><if condition="$val['status'] eq 1">待付款<elseif condition="$val['status'] eq 2" />待发货<elseif condition="$val['status'] eq 3" />已发货<elseif condition="$val['status'] eq 4" />已收货</if></td>
+                                        <td>{$val['placetime']|date="Y-m-d H:i:s",###}</td>
+                                        <td>{$val['shop_price']}</td>
+                                        <td>{$val['shop_name']}</td>
+                                        <td>{$val['name']}</td>
+                                        <td>{$val['phone_num']}</td>
+                                        <td>{$val['adddress_name']}</td>
+                                        <td>{$val['address']}</td>
+                                        <td><a href="{:U('edit',array('aid'=>$val['id']))}"><i
+                                                class="ace-icon fa fa-pencil bigger-100"></i>修改</a>&nbsp;&nbsp;<a
+                                                href="javascript:;" val="{:U('del',array('ids'=>$val['id']))}" class="del"><i
+                                                class="ace-icon fa fa-trash-o bigger-100 red"></i>删除</a></td>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                        </form>
+                        <div class="cf">
+                            <input id="submit" class="btn btn-info" type="button" value="删除">
+                        </div>
+                        {$page}
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+    <include file="Public/footer"/>
+
+</div><!-- /.main-container -->
+
+<include file="Public/footerjs"/>
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    $(function () {
+        $(".check-all").click(function () {
+            $(".ids").prop("checked", this.checked);
+        });
+        $(".ids").click(function () {
+            var option = $(".ids");
+            option.each(function (i) {
+                if (!this.checked) {
+                    $(".check-all").prop("checked", false);
+                    return false;
+                } else {
+                    $(".check-all").prop("checked", true);
+                }
+            });
+        });
+        $("#submit").click(function () {
+            bootbox.confirm({
+                title: "系统提示",
+                message: "是否要删除所选订单信息？",
+                callback: function (result) {
+                    if (result) {
+                        $("#form").submit();
+                    }
+                },
+                buttons: {
+                    "cancel": {"label": "取消"},
+                    "confirm": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        });
+        $(".del").click(function () {
+            var url = $(this).attr('val');
+            bootbox.confirm({
+                title: "系统提示",
+                message: "是否要该删除该订单信息？",
+                callback: function (result) {
+                    if (result) {
+                        window.location.href = url;
+                    }
+                },
+                buttons: {
+                    "cancel": {"label": "取消"},
+                    "confirm": {
+                        "label": "确定",
+                        "className": "btn-danger"
+                    }
+                }
+            });
+        });
+    })
+    //
+
+</script>
+</body>
+</html>

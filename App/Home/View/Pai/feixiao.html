@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://weizhong.yimei.cn/home/user/discenter -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>分销中心</title> 
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+     <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+<style type="text/css">
+    .pagination{
+        width: 100%;
+        text-align: center;
+        margin: .4rem 0;
+    }
+    .pagination ul li{
+        display: inline-block;
+        margin: 0 .08rem;
+    }
+    .pagination ul li a,.pagination ul li span{
+        padding: 3px 8px;
+        border: 1px solid #999;
+        font-size: .24rem;
+    }
+    .pagination li span{
+        color: #fff;
+        background: #f5150e;
+        border: 1px solid #f5150e !important;
+    }
+</style>
+</head>
+<body>
+    <div class="" id="load"></div>
+    <script>
+            window.onload = function() { 
+                document.getElementById('load').className=''; 
+            }; 
+    </script>
+
+    <div class="header1">
+        分销中心
+        <a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back.png" class="h-img1"></a>
+    </div>
+    
+    <div class="dc-div1">
+        <ul class="dc-ul2 clearfix">
+            <li>
+                <p class="dc-p1">积分</p>
+                <p class="dc-p2">{$price['point']}</p>
+
+
+            </li>
+            <li>
+                <p class="dc-p1">配额</p>
+                <p class="dc-p2">{$price['anti_money']}</p>
+            </li>
+        </ul>
+                
+    </div>
+    
+    <ul class="dc-ul1 clearfix">
+        <li class="">
+            <span>推荐码</span>
+        </li>
+        <li class="on">
+            <span>我的团队</span>
+        </li>
+    </ul>
+    
+    <ul class="dc-ul3 clearfix">
+        <li class="">
+            <p class="dc-p5">{$data['invite_code']}</p>
+        </li>
+        <li class="on">
+            <p class="dc-p3">团队总人数：{$num}人</p>
+             <ul class="dc-ul4">
+                               <volist name="code" id="val">
+                                  <li>
+                     <img src="{$val['thumb']}">
+                     <div>
+                         <p class="dc-p4">{$val['name']}</p>
+                         <p class="dc-p4">已成交：{$val['count']}件&nbsp;保证金：{$val['guaranty']}元</p>
+
+                     </div>
+                 </li>
+                               </volist>
+             </ul>
+             <div class="pagination">
+                <ul>
+                    <li class="disabled previous">{$html}</li>                </ul>
+                <div style="clear: both;"></div>
+            </div>
+        </li>
+    </ul>
+    
+
+    <script>
+        $(".dc-ul1 li").click(function(){
+            $(".dc-ul1 li").removeClass('on');
+            $(this).addClass('on');
+            $(".dc-ul3>li").removeClass('on');
+            $(".dc-ul3>li").eq($(this).index()).addClass('on');
+            
+        }); 
+    </script>
+
+
+</body></html>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

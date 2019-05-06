@@ -1,0 +1,1 @@
+<?php return array('one_profit' => '2','two_profit' => '5','cash_fei' => '2','cash_money' => '100','cash_time' => '1',);

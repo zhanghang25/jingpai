@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://weizhong.yimei.cn/home/user/editname -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>修改昵称</title>
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+<div class="header">
+    <a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+    提现微信账户	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+<form>
+    <ul class="aa-ul1">
+        <li class="clearfix">
+            <span class="ri-span1 fl">账户名</span>
+            <input type="text" name="weixinname" value="{$data['weixinname']}" placeholder="请输入账户名" required="" class="aa-input1 fr">
+        </li>
+        <li class="clearfix">
+            <span class="ri-span1 fl">账户</span>
+            <input type="text" name="weixin" value="{$data['weixin']}" placeholder="请输入账户" required="" class="aa-input1 fr">
+        </li>
+
+    </ul>
+    <input type="hidden" value={:U('personal/editName')} id="url">
+    <div class="aa-btn" onclick="play(this)">确认</div>
+</form>
+
+<script type="text/javascript" src="__PUBLIC__/jss/ajaxForm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery-2.1.4.min.js"></script>
+<div id="loading" style="position:fixed;;top:38%;left: 40%;z-index:999"></div>
+
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.packaged.js"></script>
+
+<!-- 模板 -->
+
+<script type="text/javascript">
+    /*
+
+     */
+    function ajaxplay(_self,formdata){
+
+        var url = $("#url").val();
+
+        //不可点击
+
+        $(_self).prop("disabled",true);
+
+        //加载中
+
+        $('#loading').html('<img src="__PUBLIC__/jss/loading.gif" width="60" height="60">');
+
+        //ajax交互
+
+        $.ajax({
+
+            type : 'post',
+
+            url : url,
+
+            data:formdata,
+
+            processData: false,
+
+            contentType: false,
+
+            dataType:'json',
+
+            complete : function(data){
+
+                data = JSON.parse(data.responseText);
+
+                console.log(data);
+
+                if(data['code'] == 1){
+
+                    $('#loading').html("");
+
+                    noty({text: data['msg'], layout: "center",type: 'success',timeout: 1500});
+
+                    setTimeout('window.location="'+data['url']+'"',1500)
+
+                }else{
+
+                    $('#loading').html("");
+
+                    $(_self).prop("disabled",false);
+
+                    noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+
+
+
+                }
+
+
+
+            }
+
+        });
+
+    }
+
+</script>
+
+
+<script type="text/javascript">
+
+    function play(__self){
+        var formdata = new FormData();
+        var vals = $('.fr');
+        for (var i = 0; i< vals.length; ++i) {
+            if(vals[i].required){
+                if(vals[i].value == ""){
+                    noty({text: "必填项不能为空", layout: "center",type: 'warning',timeout: 4000});
+                    return false;
+                }
+            }
+            if(vals[i].value != ""){
+                formdata.append(vals[i].name, vals[i].value);
+            }
+        }
+        ajaxplay(__self,formdata);
+    }
+
+</script>
+
+</body></html>

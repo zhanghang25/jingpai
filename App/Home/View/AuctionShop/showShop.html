@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://weizhong.yimei.cn/home/bidding/detail/auction_id/4565 -->
+<html style="font-size: 50px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>商品详情</title>
+    <script src="__PUBLIC__/jss/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+ <link rel="stylesheet" href="__PUBLIC__/jss/mescroll.min.css">
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+    <style type="text/css">
+        .content{
+            margin: 10px 2px;
+        }
+        .content img{
+            width: 100%;
+        }
+        .bid-div5{
+            margin-left: 26%;
+        }
+        .bid-ok{
+            width: 3rem;
+        }
+        .hiSlider li img{
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+        #wrap{
+            width: 100%;
+        }
+        .hiSlider{
+            overflow: hidden;
+            width: 100%;
+        }
+        .hiSlider-item{
+            float: left;
+        }
+        .kq{
+            text-align: center;
+            font-size: 18px;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+        .body{
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0.15rem 0.23rem 0.28rem;
+        }
+    </style>
+</head>
+
+<body onload="remind()">
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+<div class="header">
+    <a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+    商品详情	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+<div id="wrap">
+    <div class="hiSlider-wrap" style="overflow: hidden; position: relative; width:100%;"><ul class="hiSlider hiSlider3" style="width: 200%; left: -375px; position: relative;">
+        <li class="hiSlider-item item-clone" style="width:100%; float: left;"><img src="{$auction.carousel_figure1}" style="height: 300px;width:100%;"/></li>
+        <li class="hiSlider-item item-clone" style="width:100%; float: left;"><img src="{$auction.carousel_figure2}" style="height: 300px;width:100%;"/></li>
+        <li class="hiSlider-item item-clone" style="width:100%; float: left;"><img src="{$auction.carousel_figure3}" style="height: 300px;width:100%;"/></li></ul><div class="hiSlider-pages"><a href="javascript:;" class="active">1</a></div></div>
+</div>
+<div class="clearfix">
+    <div class="pd-div1 fl"><if condition="$auction.status eq 0 "> 还未开始
+        <elseif condition="$auction.status eq 1 "/>正在进行
+        <else /> 已结束
+    </if></div>
+    <div class="pd-div2 fr">
+        <if condition="$auction.status eq 0">
+
+        <span class="pd-span1">开始时间:</span>
+        <span class="pd-span2">{$auction.start_time|date="H:i:s",###}</span>
+        <elseif condition="$auction.status eq 1" />
+        <span class="pd-span1">距离结束仅剩:</span>
+        <span class="pd-span2">{$auction.end_time|date="Y/m/d H:i:s",###}</span>
+
+        </if>
+    </div>
+
+</div>
+<ul class="pd-ul1">
+    <li>
+        <div class="pd-div3">
+            <p class="pd-p1">{$auction.short_show}</p>
+            <div class="pd-div4 bidding_price">
+                <span class="pd-span3">当前价:</span>
+                <span class="pd-span4">¥{$auction.success_price}</span>
+            </div>
+        </div>
+        <div class="pd-div5">
+            <p class="pd-p2">
+                <span class="pd-span10">起拍价:¥{$auction.start_price}</span>
+                <span class="pd-span5">加价幅度:¥{$auction.additional_shot_range}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="pd-span5">参考价:¥{$auction.reference_price}</span>
+            </p>
+            <p class="pd-p2">
+                <span class="pd-span10">最高成交价:¥{$auction.high_price}</span>
+                <span class="pd-span5">保证金:¥{$auction.guaranty}</span>
+            </p>
+        </div>
+    </li>
+    <li>
+        <a href={:U('auctionShop/jilu',array('id'=>$auction['id']))}>
+            <div class="clearfix pd-div6">
+                <img src="__PUBLIC__/jss/logo20.png" class="pd-img2 fl">
+                <span class="pd-span6 fl">出价记录</span>
+                <img src="__PUBLIC__/jss/logo21.png" class="pd-img2 fr">
+                <span class="pd-span7 fr">0条</span>
+            </div>
+        </a>
+        <div class="pd-div16">
+            <p class="pd-p7">当前没有数据</p><table class="pd-tabble" id="table">
+
+        </table>
+
+        </div>
+        <div class="pd-div7 clearfix">
+            <img src="__PUBLIC__/jss/logo22.png" class="pd-img2 fl">
+            <span class="pd-span8 fl">拍卖流程</span>
+        </div>
+        <ul class="pd-ul2 clearfix">
+            <li>
+                <img src="__PUBLIC__/jss/logo23.png" class="pd-img3">
+                <p class="pd-p3">交保证金</p>
+            </li>
+            <li>
+                <img src="__PUBLIC__/jss/logo24.png" class="pd-img3">
+                <p class="pd-p3">出价竞拍</p>
+            </li>
+            <li>
+                <img src="__PUBLIC__/jss/logo25.png" class="pd-img3">
+                <p class="pd-p3">竞拍成功</p>
+            </li>
+            <li>
+                <img src="__PUBLIC__/jss/logo26.png" class="pd-img3">
+                <p class="pd-p3">支付货款</p>
+            </li>
+            <li>
+                <img src="__PUBLIC__/jss/logo27.png" class="pd-img3">
+                <p class="pd-p3">交易成功</p>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href={:U('integral/articles',array('id'=>4))}>
+            <div class="pd-div8 clearfix">
+                <span class="pd-span9 fl">竞拍规则</span>
+                <img src="__PUBLIC__/jss/logo2.png" class="pd-img4 fr">
+            </div>
+        </a>
+        <a href={:U('integral/articles',array('id'=>5))}>
+            <div class="pd-div9 clearfix">
+                <span class="pd-span9 fl">保证金规则</span>
+                <img src="__PUBLIC__/jss/logo2.png" class="pd-img4 fr">
+            </div>
+        </a>
+    </li>
+    <li class="content">
+        <p class="pd-p4">拍品详情</p>
+        <p>
+            {$auction.detail}
+        </p>
+      </li>
+</ul>
+<div class="pd-dj"></div>
+
+<div class="pd-div10 clearfix">
+    <div class="pd-div11 fl">
+        <div class="pd-div15 fl  numble" style="margin-left: 50px;">1</div>
+    </div>
+    <div class="pd-div12 pd-red fr">
+        <if condition="$auction['status'] eq 1">
+        <p class="pd-p5">出价</p>
+        <p class="pd-p6">¥{$auction.additional_shot_range}/次</p>
+            <elseif condition="$auction['status'] eq 2" />
+                <p class="pd-p5">拍卖结束</p>
+            <else />
+            <p class="pd-p5">还未开始</p>
+        </if>
+    </div>
+</div>
+
+<input type="hidden" name="" id="add_price" value="{$auction['additional_shot_range']}">
+<input type="hidden" name="" id="bidding_price" value="{$auction.start_price}">
+<input type="hidden" name="" id="url" value="{:U('add_bid')}">
+<input type="hidden" name="" id="res" value="0">
+<input type="hidden" name="id" value="{$auction.id}">
+<input type="hidden" name="status" value="{$auction.status}" >
+<input type="hidden" name="success_price" value="{$auction.success_price}" >
+<input type="hidden" name="high_price" value="{$auction.high_price}">
+<div class="bid">
+
+</div>
+<div class="bid-div1 bid-div_1">
+    <div class="bid-div2" style="height:auto;overflow: hidden;">
+        <div class="bid-div3 clearfix">
+            <div class="bid-div4   fl  "></div>
+            <div class="bid-div5 fl  ">¥<span class="bid-numble"></span></div>
+            <div class="bid-div6  fr  "></div>
+        </div>
+        <a href="javascript:refresh()" class="bid-ok" style="margin-left: 0.5rem;display:block;float: left;">刷新</a>
+        <button class="bid-ok" onclick="play(this)" style="float: right;margin-left: 0rem;border: none;margin-right: 0.5rem;">确认出价</button>
+
+    </div>
+</div>
+<div class="bond">
+
+</div>
+<div class="bid-div1 bid-div_2">
+    <div class="bid-div2">
+        <p class="bond-p1">保证金余额不足请充值！</p>
+        <a href="{:U('qianbao/index')}" ><div class="bond-ok" style="margin: auto;margin-top: 0.45rem;">去充值</div></a>
+    </div>
+</div>
+<script src="__PUBLIC__/jss/jquery.hiSlider.min.js"></script>
+<script src="__PUBLIC__/jss/time.js"></script>
+
+<script>
+    $('.hiSlider3').hiSlider({
+        isFlexible: true,
+        isSupportTouch: true,
+        isShowTitle: false,
+        isShowControls: false,
+
+    });
+</script>
+<script>
+    run();
+    $('.reduce').click(function(){
+        var m=$('.numble').text();
+        m--;
+        $('.numble').text(m);
+        if($('.numble').text()<1){
+            $('.numble').text('1')
+        }
+    });
+    $('.plus').click(function(){
+        var m=$('.numble').text();
+        m++;
+        $('.numble').text(m);
+    });
+</script>
+<script>
+    $('.pd-div12').click(function(){
+
+        var res = $('#res').val();
+        var auction_id = $("input[name='id']").val();
+        var status = $("input[name='status']").val();
+        // alert(status);
+            if (status == 1 && res == 1 ) {
+
+                var add_price = $('#add_price').val();
+                var bidding_price = $('input[name="success_price"]').val();
+                var price = Number(add_price) + Number(bidding_price);
+                //var price = Number(add_price*num)+Number(bidding_price);
+                $('.bid-numble').text(price);
+                $('.bid,.bid-div_1').toggle();
+            }
+            else{
+            $.ajax({
+                url:"{:U('convert')}",
+                data:{auction_id:auction_id,res:res},
+                type:"Post",
+                success:function(data){
+                // console.log(data.data);
+                if(data.data == 0){
+                    $('.bond,.bid-div_2').toggle();
+                }else if(data.data == 1){
+                    // noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+                    $("#res").val(1);
+                }else if(data.data == 2){
+                    var add_price = $('#add_price').val();
+                    var bidding_price =  $('input[name="success_price"]').val();
+                    var price = Number(add_price)+Number(bidding_price);
+                    //var price = Number(add_price*num)+Number(bidding_price);
+                    $('.bid-numble').text(price);
+                    $('.bid,.bid-div_1').toggle();
+                    $('#res').val(1);
+                }else if(data.data == 3){
+                    //var num = $('.numble').text();
+                    noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+                }else if(data.data == 4)
+                    noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+
+                },
+                error:function(data){
+
+                console.log(data);
+                layer.msg("出错了！！");
+            }
+            });
+            }
+        
+
+    });
+    $('.bid').click(function(){
+        $('.bid,.bid-div_1').toggle();
+    });
+    $('.bond').click(function(){
+        $('.bond,.bid-div_2').toggle();
+    });
+
+    $('.bid-reduce').click(function(){
+        var m=$('.bid-numble').text();
+        m--;
+        $('.bid-numble').text(m);
+        if($('.bid-numble').text()<0){
+            $('.bid-numble').text('0')
+        }
+    });
+    $('.bid-plus').click(function(){
+        var m=$('.bid-numble').text();
+        m++;
+        $('.bid-numble').text(m);
+    });
+
+    if($('.pd-div16 table').length>0){
+        //$('.pd-div16 p').css('display','none')
+    };
+    function play(__self){
+
+        var auction_id = $("input[name='id']").val();
+        var price = $('.bid-numble').text();
+
+        var add_price = $('#add_price').val();
+        // var bidding_price = $('#bidding_price').val();
+        // var price = Number(add_price)+Number(bidding_price);
+        var high_price = $("input[name='high_price']").val();
+        var formdata = new FormData();
+        formdata.append('auction_id', auction_id);
+        formdata.append('price', price);
+        formdata.append('add_price',add_price);
+        formdata.append('high_price',high_price);
+        ajaxplay(__self,formdata);
+    }
+    var ref = '';
+
+    ref = setInterval(function(){
+        remind();
+    },1500);
+    //报价更新
+
+    function remind(){
+        // var auction_status = $("input[name='status']").val();
+        // if(auction_status == 2){
+        //     clearInterval(ref);
+        //     return false;
+        // }
+
+        var bidding_id = $('.current').find('input').val();
+        if(bidding_id == undefined){
+            bidding_id = 0;
+        }
+        var auction_id = $("input[name='id']").val();
+        var status = $("input[name='status']").val();
+        $.get("{:U('per_time')}",{bidding_id:bidding_id,auction_id:auction_id,status:status},function(data){
+
+            if(data.code == 1){
+                if(data.data == 1){
+                    window.location.href = data.url;
+                }else{
+                    if(data.statu == 2){
+                        $('.bid,.bid-div_1').hide();
+                        $('#res').val(0);
+                        $('.pd-div12').html("<p class=\"pd-p5\">拍卖结束</p>")
+                        $('.pd-div1').html("已结束");
+                        $('.pd-div2').html('');
+                    }
+                    $('.pd-span7').text(data.length+'条');
+                    //alert(2);
+                    var data = data.data;
+                    console.log(data);
+                    var length = data.length;
+                    if(length > 5){
+                        length = 5;
+                    }
+                    var html = '';
+                    for (var i = 0; i < length; i++) {
+                        if(i == 0){
+                            html += '<tr class="current">';
+                            html += "<td>"+data[i]['name']+"</td>";
+                            html += "<td>领先</td>";
+                            html += "<td>暂无</td>";
+                            html += "<td>"+data[i]['price']+"</td>";
+                        }else{
+                            html += '<tr>';
+                            html += "<td>"+data[i]['name']+"</td>";
+                            html += "<td>出局</td>";
+                            html += "<td>{:C(\'two_profit\')}</td>";
+                            html += "<td>"+data[i]['price']+"</td>";
+                        }
+
+                        html += '<input type="hidden" name="" id="bidding_id" value="'+data[i]['bidding_id']+'"></tr>';
+                    }
+                    $('.pd-div16 p').css('display','none')
+                    //$('.current').removeClass('current');
+                    var add_price = $('#add_price').val();
+                    if(data[0] == undefined){
+                        var ccc = $("#bidding_price").val();
+                        var bidding_price = ccc;
+                        var price = Number(add_price)+Number(bidding_price);
+                    }else{
+
+                    var bidding_price = data[0]['price'];
+
+
+                    var price = Number(add_price)+Number(bidding_price);
+                    }
+                    $('.bid-numble').text(price);
+
+                    $('#table').html(html);
+
+                    if (data[0] == undefined){
+                        var cc = $("#bidding_price").val();
+                        $('input[name="success_price"]').val(cc);
+                    }else{
+
+                        $('input[name="success_price"]').val(data[0]['price']);
+                    }
+
+                    if(data[0] == undefined){
+
+                    $('.bidding_price .pd-span4').text('¥'+ccc);
+                    }else{
+                    $('.bidding_price .pd-span4').text('¥'+data[0]['price']);
+
+                    }
+                    // $('#res').val(1);
+                }
+
+            }
+        });
+    }
+
+
+    function refresh(){
+        $('.bid,.bid-div_1').toggle();
+    }
+</script>
+<div id="loading" style="position:fixed;;top:38%;left: 40%;z-index:999"></div>
+
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.packaged.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/leftTime.js"></script>
+<!-- 模板 -->
+<script type="text/javascript">
+    $(".pd-div2").each(function () {
+
+        var etime=$(this).find(".pd-span2").text();
+
+        var oDiv=$(this).find(".pd-span2");
+
+        var auction_id = $("input[name='id']").val();
+         
+
+        $.leftTime(etime,function(d){
+
+
+            if(d.status){
+
+                var $dateShow1=oDiv;
+
+                var oh=eval(parseInt(d.d*24)+parseInt(d.h));
+
+                $dateShow1.text(oh+":"+d.m+":"+d.s);
+                if(oh ==0 && parseInt(d.m)==0&&parseInt(d.s)==0){
+                    // alert(1);
+                    $.ajax({
+                        url:"{:U('Set/setOneToTwo')}",
+                        data:{auction_id:auction_id},
+                        type:"Post",
+                        success:function(data){
+                            console.log(data);
+                            $('.bid,.bid-div_1').toggle();
+                            $('#res').val(0);
+                            $('.pd-div12').html("<p class=\"pd-p5\">拍卖结束</p>")
+                            $('.pd-div1').html("已结束");
+                            $('.pd-div2').html('');
+                            if (data.code == 1)
+                            {
+
+                                noty({text: data['msg'], layout: "center", type: 'success', timeout: 2000});
+                                window.location=data.url;
+
+                            }
+                        },
+
+                        error:function(data){
+
+                            layer.msg("出错了！！");
+                        }
+                    });
+                }
+            }
+
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    /*
+
+     */
+    function ajaxplay(_self,formdata){
+
+        var url = $("#url").val();
+
+        //不可点击
+
+        $(_self).prop("disabled",true);
+
+        //加载中
+
+        // $('#loading').html('<img src="/themes/simpleboot3/public/tools/loading.gif" width="60" height="60">');
+
+        //ajax交互
+
+        $.ajax({
+
+            type : 'post',
+
+            url : url,
+
+            data:formdata,
+
+            processData: false,
+
+            contentType: false,
+
+            dataType:'json',
+
+            success : function(data) {
+                 console.log(data);
+
+                $('#loading').html("");
+                //var auction_id = 4565;
+
+                //$.get("/home/bidding/setmemcache", { auction_id: auction_id},function(){
+                if(data['error'] ==1||data['code'] == 2){
+                    $.noty.closeAll();
+                  $.noty.clearQueue();
+                noty({text: data['msg'], layout: "center", type: 'error', timeout:800});
+                  
+                }else{
+                 $.noty.closeAll();
+                  $.noty.clearQueue();
+                noty({text: data['msg'], layout: "center", type: 'success', timeout:800});
+                
+                 
+                    
+                }
+                if(data['code'] ==1)
+                {
+                  $.noty.closeAll();
+                  $.noty.clearQueue();
+                    $('.bid-div_1').hide();
+                  $('.bid').hide();
+                    $('#res').val(0);
+                    $('.pd-div12').html("<p class=\"pd-p5\">拍卖结束</p>")
+                    $('.pd-div1').html("已结束");
+                    $('.pd-div2').html('');
+                    // noty({text: data['msg'], layout: "center", type: 'success', timeout: 2000});
+                    
+                    setTimeout('window.location="' + data['url'] + '"',200);
+
+                }
+
+
+
+                $(_self).prop("disabled",false);
+                // setTimeout('window.location="' + data['url'] + '"', 1400);
+                // setTimeout('window.location.reload(), 1400);
+                //});
+            },
+            error:function(data){
+                    $('#loading').html("");
+                    console.log(data);
+                    $(_self).prop("disabled",false);
+
+                    noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+
+
+
+                }
+
+
+
+
+
+        });
+
+    }
+
+function jk(){
+    var auction_id =$("input[name='id']").val();
+
+        $.ajax({
+            type:"post",
+            url:"{:U('AuctionShop/fgh')}",
+            data:{id:auction_id},
+            success:function(msg){
+                if (msg.code==1){
+                    var auction=$("input[name='id']").val();
+                    if (!localStorage.getItem('jk'+auction)){
+
+                        localStorage.setItem('jk'+auction,'kk');
+                        location.reload();
+                    }
+
+                }
+            }
+
+
+        })
+    var pp=setTimeout('jk()',1000);
+    }
+    window.onload=jk;
+
+</script>
+
+
+</body></html>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>

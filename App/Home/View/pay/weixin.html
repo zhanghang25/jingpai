@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://weizhong.yimei.cn/home/user/withdrawal/type/1 -->
+<html style="font-size: 54.8px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>提现</title>
+    <script src="__PUBLIC__/jss/jquery.1.9.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jss/rem.js"></script>
+    <link href="__PUBLIC__/jss/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/jss/jquery.hiSlider.min.css">
+
+    <link type="text/css" href="__PUBLIC__/jss/jq22.css" rel="stylesheet">
+    <style type="text/css">
+        p{
+            margin: 10px auto;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="" id="load"></div>
+<script>
+    window.onload = function() {
+        document.getElementById('load').className='';
+    };
+</script>
+
+<div class="header">
+    <a onclick="javascript:history.back(-1);"><img src="__PUBLIC__/jss/back1.png" class="h-img1"></a>
+    提现	<a href={:U('index/articles',array('id'=>1))}><img src="__PUBLIC__/jss/help.png" class="h-img"></a>
+</div>
+<div class="clearfix pf-div1">
+    <span class="pf-span1 fl">收款账号</span>
+    <input type="hidden" name="account_id" id="yy" required="" class="fr" value="2239">
+    <a href={:U('payconfig/weixingai')} style="float:right;margin-top: 20px;"><span class="ii">您还没有设置微信号点我设置</span></a>
+    <a href={:U('payconfig/weixingai')}><span class="pf-span2 fr pps">{$data['weixin']}</span></a>
+</div>
+
+<div class="rc-div3">
+
+    <div class="rc-div1">
+        <span>¥</span>
+        <input type="text" required="" class="fr" id="tiprice" name="money" placeholder="请输入提现金额">
+    </div>
+    <p class="pf-p1">
+
+        可提现金额¥<if  condition="$type eq 1">{$data['guaranty']}<else/>{$data['available_balance']}</if></p>
+    <input type="hidden" value="<if  condition="$type eq 1">{$data['guaranty']}<else/>{$data['available_balance']}</if>" id="userprice">
+    <input type="hidden" value="0.00" id="userprice1111">
+    <button class="aa-btn" onclick="play(this)">立即提现</button>
+    <p>周一至周五提现时间为9：00至17：00<br/> 提现手续费为{:C('cash_fei')}%提现最低额度为{:C('cash_money')}元</p>
+    <input type="hidden" value={:U('payconfig/wxpays')} id="url">
+</div>
+
+
+<script type="text/javascript" src="__PUBLIC__/jss/ajaxForm.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery-2.1.4.min.js"></script>
+<div id="loading" style="position:fixed;;top:38%;left: 40%;z-index:999"></div>
+
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/center.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/inline.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/default.js"></script>
+<script type="text/javascript" src="__PUBLIC__/jss/jquery.noty.packaged.js"></script>
+
+<!-- 模板 -->
+
+<script type="text/javascript">
+    /*
+
+     */
+    if ($('.pps').html()){
+
+        $('.ii').css('display','none');
+    }else{
+
+        $('.ii').css('display','block');
+    }
+    function ajaxplay(_self,formdata){
+
+        var url = $("#url").val();
+
+        //不可点击
+
+        $(_self).prop("disabled",true);
+
+        //加载中
+
+        $('#loading').html('<img src="__PUBLIC__/jss/loading.gif" width="60" height="60">');
+
+        //ajax交互
+
+        $.ajax({
+
+            type : 'post',
+
+            url : url,
+
+            data:formdata,
+
+            processData: false,
+
+            contentType: false,
+
+            dataType:'json',
+
+            complete : function(data){
+
+                data = JSON.parse(data.responseText);
+
+                console.log(data);
+
+                if(data['code'] == 1){
+
+                    $('#loading').html("");
+
+                    noty({text: data['msg'], layout: "center",type: 'success',timeout: 1500});
+
+                    setTimeout('window.location="'+data['url']+'"',1500)
+
+                }else{
+
+                    $('#loading').html("");
+
+                    $(_self).prop("disabled",false);
+
+                    noty({text: data['msg'], layout: "center",type: 'error',timeout: 4000});
+
+
+
+                }
+
+
+
+            }
+
+        });
+
+    }
+
+</script>
+
+
+<script type="text/javascript">
+    function play(__self){
+        var formdata = new FormData();
+        var vals = $('.fr');
+        for (var i = 0; i< vals.length; ++i) {
+            if(vals[i].required){
+                if(vals[i].value == ""){
+                    noty({text: "必填项不能为空", layout: "center",type: 'warning',timeout: 4000});
+                    return false;
+                }
+            }
+            if(vals[i].value != ""){
+                formdata.append(vals[i].name, vals[i].value);
+            }
+            formdata.append('type',"{$type}");
+        }
+        var tiprice = $('#tiprice').val();
+        if(Number(tiprice) >0){
+            var userprice = $('#userprice').val();
+            if(Number(tiprice) > Number(userprice)){
+                noty({text: "余额不足", layout: "center",type: 'warning',timeout: 4000});
+                return false;
+            }
+        }else{
+            noty({text: "提现金额必须大于0", layout: "center",type: 'warning',timeout: 4000});
+            return false;
+        }
+
+        ajaxplay(__self,formdata);
+    }
+</script>
+
+</body></html>
+<script type="text/javascript" src="__PUBLIC__/jss/mescroll.js"></script>
+<script>
+$(function(){
+var mescroll = new MeScroll("body", { //id固定"body"
+				//上拉加载的配置项
+			down:{
+                     use:true,
+              auto:false,
+					autoShowLoading:false, //如果在初始化完毕之后自动执行下拉回调,是否显示下拉刷新进度; 默认false. (需配置down的callback才生效)
+					callback:dataList
+				},
+
+})
+  function  getListData(){
+ 
+    
+  }
+  function dataList(){
+    location.reload();
+  }
+})
+
+</script>
